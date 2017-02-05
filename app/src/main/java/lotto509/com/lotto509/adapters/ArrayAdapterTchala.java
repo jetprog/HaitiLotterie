@@ -1,14 +1,16 @@
-package lotto509.com.lotto509;
+package lotto509.com.lotto509.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import lotto509.com.lotto509.R;
+import lotto509.com.lotto509.models.Tchala;
 
 /**
  * Created by SET JETRO on 9/27/2016.

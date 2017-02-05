@@ -1,4 +1,4 @@
-package lotto509.com.lotto509;
+package lotto509.com.lotto509.activity;
 
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
 
 import com.backendless.Backendless;
@@ -19,11 +18,13 @@ import com.backendless.persistence.QueryOptions;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import lotto509.com.lotto509.EndlessScrollListener;
+import lotto509.com.lotto509.R;
+import lotto509.com.lotto509.adapters.ArrayAdapterTchala;
+import lotto509.com.lotto509.models.Tchala;
+
 public class TchalaActivity extends AppCompatActivity {
 
-    public static final String APP_ID = "4DB157CB-1243-34CE-FF94-CA1D45E6E200" ;
-    public static final String SECRET_KEY = "64871D48-EA7C-F708-FFC5-6DCA765FBB00";
-    public static final String VERSION = "v1";
 
     private ArrayList<Tchala> tchalaliste;
     private ArrayAdapterTchala tchalaAdapter;
@@ -35,8 +36,6 @@ public class TchalaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tchala);
 
-
-        Backendless.initApp(this, APP_ID, SECRET_KEY, VERSION);
 
         getSupportActionBar().setTitle("Tchala");
 

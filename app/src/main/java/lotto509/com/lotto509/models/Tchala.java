@@ -1,4 +1,4 @@
-package lotto509.com.lotto509;
+package lotto509.com.lotto509.models;
 
 /**
  * Created by SET JETRO on 9/27/2016.
