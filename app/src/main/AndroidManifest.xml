@@ -10,18 +10,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.TchalaActivity"></activity>
+        <activity android:name=".activity.TchalaActivity" />
         <activity
             android:name=".activity.ActivityHome"
             android:label="@string/title_activity_activityest"
             android:theme="@style/AppTheme.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.TirageActivity" />
+        <activity android:name=".activity.ProbabilityActivity"></activity>
     </application>
 
 </manifest>

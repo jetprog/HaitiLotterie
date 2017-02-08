@@ -1,5 +1,6 @@
 package lotto509.com.lotto509.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -72,22 +73,43 @@ public class ActivityHome extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.itTirages) {
+            // Handle the Tirage action
+            showTirage();
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.itTchala) {
+            // Handle the Tchala action
+            showTChala();
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.itProbabilite) {
+            // Handle the Tirage action
+            showProbabilite();
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.itShare) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.itSend) {
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void showTirage(){
+        Intent i = new Intent(ActivityHome.this, TirageActivity.class  );
+        startActivity(i);
+    }
+
+    public void showTChala(){
+        Intent i = new Intent(ActivityHome.this, TchalaActivity.class  );
+        startActivity(i);
+    }
+
+
+
+    public void showProbabilite(){
+        Intent i = new Intent(ActivityHome.this, ProbabilityActivity.class  );
+        startActivity(i);
     }
 }
