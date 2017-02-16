@@ -1,5 +1,6 @@
 package lotto509.com.lotto509.activity;
 
+import android.content.Intent;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ public class TchalaActivity extends AppCompatActivity {
 
 
         getSupportActionBar().setTitle("Tchala");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         listTchala = (ListView) findViewById(R.id.lvTchala);
         tchalaliste = new ArrayList<>();
@@ -54,6 +56,19 @@ public class TchalaActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // do something useful
+                Intent i = new Intent(getApplicationContext(), ActivityHome.class);
+                startActivity(i);
+                overridePendingTransition(17432578, 17432579);
+        }
+
+        return(super.onOptionsItemSelected(item));
     }
 
     private void customLoadMoreDataFromApi(int page) {

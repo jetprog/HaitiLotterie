@@ -22,7 +22,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.TirageActivity" />
-        <activity android:name=".activity.ProbabilityActivity"></activity>
+        <activity android:name=".activity.ProbabilityActivity" />
+        <activity android:name=".fragments.ColonneFragment" />
+        <activity android:name=".fragments.KonpayelFragment"></activity>
     </application>
 
 </manifest>
