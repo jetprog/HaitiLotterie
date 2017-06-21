@@ -41,6 +41,7 @@ public class TirageActivity extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), ActivityHome.class);
                 startActivity(i);
                 overridePendingTransition(17432578, 17432579);
+                finish();
         }
 
         return(super.onOptionsItemSelected(item));
