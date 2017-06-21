@@ -11,10 +11,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.backendless.Backendless;
+
 import lotto509.com.lotto509.R;
 
 public class ActivityHome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static final String APP_ID = "7F541714-20D4-7099-FFE3-CF6CD846F000" ;
+    public static final String SECRET_KEY = "7F304623-87C5-E653-FF05-F6538884A800";
+    public static final String VERSION = "v1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +30,8 @@ public class ActivityHome extends AppCompatActivity
         toolbar.setTitle("Lotto509");
         setSupportActionBar(toolbar);
 
+
+        Backendless.initApp(this, APP_ID, SECRET_KEY, VERSION);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -99,11 +107,13 @@ public class ActivityHome extends AppCompatActivity
     public void showTirage(){
         Intent i = new Intent(ActivityHome.this, TirageActivity.class  );
         startActivity(i);
+        finish();
     }
 
     public void showTChala(){
         Intent i = new Intent(ActivityHome.this, TchalaActivity.class  );
         startActivity(i);
+        finish();
     }
 
 
@@ -111,5 +121,6 @@ public class ActivityHome extends AppCompatActivity
     public void showProbabilite(){
         Intent i = new Intent(ActivityHome.this, ProbabilityActivity.class  );
         startActivity(i);
+        finish();
     }
 }
