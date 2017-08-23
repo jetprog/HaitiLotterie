@@ -10,28 +10,43 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 
 import lotto509.com.lotto509.R;
+import lotto509.com.lotto509.models.TirageMidi;
+import lotto509.com.lotto509.models.TirageSoir;
+import lotto509.com.lotto509.utils.Backend;
 
 public class ActivityHome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static final String APP_ID = "7F541714-20D4-7099-FFE3-CF6CD846F000" ;
-    public static final String SECRET_KEY = "7F304623-87C5-E653-FF05-F6538884A800";
-    public static final String VERSION = "v1";
+
+    //declare variable to set value for each textview
+    private TextView dateTirageMidi;
+    private TextView lotto3Midi;
+    private TextView lotto4Midi;
+    private TextView dateTirageSoir;
+    private TextView lotto3Soir;
+    private TextView lotto4Soir;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        //replace actionbar by toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Lotto509");
         setSupportActionBar(toolbar);
 
-
-        Backendless.initApp(this, APP_ID, SECRET_KEY, VERSION);
+        //initialize backendless for the app
+        Backendless.initApp(this, Backend.APP_ID, Backend.SECRET_KEY, Backend.VERSION);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -41,7 +56,83 @@ public class ActivityHome extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        //populate data Tirage midi
+        setTirageMidi();
+
+        //populate data tirage soir
+        setTirageSoir();
+
+
     }
+
+
+    public void setTirageMidi(){
+
+        dateTirageMidi = (TextView) findViewById(R.id.tvDateTirageMidi);
+        lotto3Midi = (TextView) findViewById(R.id.tvLotto3Midi);
+        lotto4Midi = (TextView) findViewById(R.id.tvLotto4Midi);
+
+        Backendless.Persistence.of( TirageMidi.class).findLast(new AsyncCallback<TirageMidi>(){
+            @Override
+            public void handleResponse( TirageMidi tirageMidifound )
+            {
+                // last tirage instance has been found
+                TirageMidi tirage = tirageMidifound;
+                Toast.makeText(getApplicationContext(), "Succes", Toast.LENGTH_SHORT).show();
+                String dateTir = tirage.getDateTirage().toString();
+                String lot3 = tirage.getLotto3().toString();
+                String lot4 = tirage.getLotto4().toString();
+
+                dateTirageMidi.setText(dateTir);
+                lotto3Midi.setText(lot3);
+                lotto4Midi.setText(lot4);
+            }
+            @Override
+            public void handleFault( BackendlessFault fault )
+            {
+                // an error has occurred, the error code can be retrieved with fault.getCode()
+                Toast.makeText(getApplicationContext(), "No tirage", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void setTirageSoir(){
+
+        dateTirageSoir = (TextView) findViewById(R.id.tvDateTirageSoir);
+        lotto3Soir = (TextView) findViewById(R.id.tvLotto3Soir);
+        lotto4Soir = (TextView) findViewById(R.id.tvLotto4Soir);
+
+        Backendless.Persistence.of( TirageSoir.class).findLast(new AsyncCallback<TirageSoir>(){
+            @Override
+            public void handleResponse( TirageSoir tirageSoirfound )
+            {
+                // last tirage instance has been found
+                TirageSoir tirage = tirageSoirfound;
+                Toast.makeText(getApplicationContext(), "Succes", Toast.LENGTH_SHORT).show();
+                String dateTir = tirage.getDateTirage().toString();
+                String lot3 = tirage.getLotto3().toString();
+                String lot4 = tirage.getLotto4().toString();
+
+                dateTirageSoir.setText(dateTir);
+                lotto3Soir.setText(lot3);
+                lotto4Soir.setText(lot4);
+            }
+            @Override
+            public void handleFault( BackendlessFault fault )
+            {
+                // an error has occurred, the error code can be retrieved with fault.getCode()
+                Toast.makeText(getApplicationContext(), "No tirage", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
+
+
+
 
     @Override
     public void onBackPressed() {

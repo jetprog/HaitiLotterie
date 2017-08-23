@@ -10,11 +10,11 @@ import java.util.ArrayList;
 
 import lotto509.com.lotto509.R;
 import lotto509.com.lotto509.adapters.ArrayAdapterTirage;
-import lotto509.com.lotto509.models.Tirages;
+import lotto509.com.lotto509.models.TirageMidi;
 
 public class TirageActivity extends AppCompatActivity {
 
-    private ArrayList<Tirages> tirageliste;
+    private ArrayList<TirageMidi> tirageliste;
     private ArrayAdapterTirage tirageAdapter;
     private ListView listTirages;
 
@@ -22,7 +22,7 @@ public class TirageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tirage);
-        getSupportActionBar().setTitle("Tirages");
+        getSupportActionBar().setTitle("TirageMidi");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 

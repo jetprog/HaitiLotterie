@@ -10,15 +10,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import lotto509.com.lotto509.R;
-import lotto509.com.lotto509.models.Tirages;
+import lotto509.com.lotto509.models.TirageMidi;
 
 /**
  * Created by SET JETRO on 2/16/2017.
  */
-public class ArrayAdapterTirage extends ArrayAdapter<Tirages> {
+public class ArrayAdapterTirage extends ArrayAdapter<TirageMidi> {
 
         //constructor
-        public ArrayAdapterTirage(Context context, ArrayList<Tirages> tirageList)
+        public ArrayAdapterTirage(Context context, ArrayList<TirageMidi> tirageList)
         {
             super(context, android.R.layout.simple_list_item_1, tirageList);
         }
@@ -27,7 +27,7 @@ public class ArrayAdapterTirage extends ArrayAdapter<Tirages> {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            Tirages tirage = getItem(position);
+            TirageMidi tirage = getItem(position);
             if(convertView == null){
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(R.layout.item_tirage, parent, false);
