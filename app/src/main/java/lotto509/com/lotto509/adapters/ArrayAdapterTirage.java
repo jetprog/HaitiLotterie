@@ -10,15 +10,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import lotto509.com.lotto509.R;
-import lotto509.com.lotto509.models.TirageMidi;
+import lotto509.com.lotto509.models.TirageSoir;
 
 /**
  * Created by SET JETRO on 2/16/2017.
  */
-public class ArrayAdapterTirage extends ArrayAdapter<TirageMidi> {
+public class ArrayAdapterTirage extends ArrayAdapter<TirageSoir> {
 
         //constructor
-        public ArrayAdapterTirage(Context context, ArrayList<TirageMidi> tirageList)
+        public ArrayAdapterTirage(Context context, ArrayList<TirageSoir> tirageList)
         {
             super(context, android.R.layout.simple_list_item_1, tirageList);
         }
@@ -27,7 +27,7 @@ public class ArrayAdapterTirage extends ArrayAdapter<TirageMidi> {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            TirageMidi tirage = getItem(position);
+            TirageSoir tirage = getItem(position);
             if(convertView == null){
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(R.layout.item_tirage, parent, false);
@@ -40,6 +40,9 @@ public class ArrayAdapterTirage extends ArrayAdapter<TirageMidi> {
 
 
             //populate data
+            dateTirage.setText(tirage.getDateTirage().toString());
+            lotto3.setText(tirage.getLotto3().toString());
+            lotto4.setText(tirage.getLotto4().toString());
 
 
             return convertView;
