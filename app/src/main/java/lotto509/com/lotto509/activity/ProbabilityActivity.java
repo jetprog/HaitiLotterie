@@ -39,7 +39,7 @@ public class ProbabilityActivity extends AppCompatActivity {
     public static class OrderPageAdapter extends FragmentPagerAdapter {
 
         final int PAGE_COUNT = 2;
-        String TabTitles[] = {"Colonne 3", "Colonne 4"};
+        String TabTitles[] = {"Colonne 4", "Colonne 3"};
 
 
         public OrderPageAdapter(FragmentManager fm) {
