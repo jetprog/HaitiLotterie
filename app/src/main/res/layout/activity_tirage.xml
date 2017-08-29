@@ -3,15 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#ffff00"
     tools:context="lotto509.com.lotto509.activity.TirageActivity">
 
-    <ListView
-        android:layout_width="wrap_content"
+    <com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/tabsTirage"
+        app:pstsShouldExpand="true"
+        app:pstsTextAllCaps="true"
+        android:layout_width="match_parent"
+        android:layout_height="48dp" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpagerTirage"
+        android:layout_below="@+id/tabsTirage"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/lvTirages"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:dividerHeight="0dp" />
+        android:background="@android:color/white" />
 </RelativeLayout>

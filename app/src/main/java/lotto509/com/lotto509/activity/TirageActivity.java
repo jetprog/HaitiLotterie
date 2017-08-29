@@ -1,37 +1,78 @@
 package lotto509.com.lotto509.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.ListView;
 
-import java.util.ArrayList;
+import com.astuetz.PagerSlidingTabStrip;
 
 import lotto509.com.lotto509.R;
-import lotto509.com.lotto509.adapters.ArrayAdapterTirage;
-import lotto509.com.lotto509.models.Tirages;
+import lotto509.com.lotto509.fragments.MidiFragment;
+import lotto509.com.lotto509.fragments.SoirFragment;
 
 public class TirageActivity extends AppCompatActivity {
 
-    private ArrayList<Tirages> tirageliste;
-    private ArrayAdapterTirage tirageAdapter;
-    private ListView listTirages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tirage);
-        getSupportActionBar().setTitle("Tirages");
+        getSupportActionBar().setTitle("TirageMidi");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        listTirages = (ListView) findViewById(R.id.lvTirages);
-        tirageliste = new ArrayList<>();
-        tirageAdapter = new ArrayAdapterTirage(this, tirageliste);
-        listTirages.setAdapter(tirageAdapter);
+        //get the veiw pager adapter
+        ViewPager vpPage = (ViewPager) findViewById(R.id.viewpagerTirage);
+        //set the view pager for the viewpagerAdapter
+        vpPage.setAdapter(new OrderPageTirageAdapter(getSupportFragmentManager()));
+        //find the sliding tabs
+        PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabsTirage);
+        //attach the pager
+        tabStrip.setViewPager(vpPage);
 
     }
+
+
+    //return the order of the fragments and the viewpager
+    public static class OrderPageTirageAdapter extends FragmentPagerAdapter {
+
+        final int PAGE_COUNT = 2;
+        String TabTitles[] = {"Midi", "Soir"};
+
+
+        public OrderPageTirageAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            if (position == 0) {
+                return new MidiFragment();
+            } else if (position == 1) {
+                return new SoirFragment();
+            } else {
+                return null;
+            }
+        }
+
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return TabTitles[position];
+        }
+
+        @Override
+        public int getCount() {
+            return TabTitles.length;
+        }
+    }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

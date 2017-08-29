@@ -1,14 +1,15 @@
 package lotto509.com.lotto509.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import com.astuetz.PagerSlidingTabStrip;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
+
+import com.astuetz.PagerSlidingTabStrip;
 
 import lotto509.com.lotto509.R;
 import lotto509.com.lotto509.fragments.ColonneFragment;
@@ -35,10 +36,10 @@ public class ProbabilityActivity extends AppCompatActivity {
 
 
     //return the order of the fragments and the viewpager
-    public class OrderPageAdapter extends FragmentPagerAdapter {
+    public static class OrderPageAdapter extends FragmentPagerAdapter {
 
         final int PAGE_COUNT = 2;
-        String TabTitles[] = {"Colonne 3", "Colonne 4"};
+        String TabTitles[] = {"Colonne 4", "Colonne 3"};
 
 
         public OrderPageAdapter(FragmentManager fm) {
