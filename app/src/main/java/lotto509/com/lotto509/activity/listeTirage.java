@@ -1,19 +1,24 @@
 package lotto509.com.lotto509.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.astuetz.PagerSlidingTabStrip;
 
+import lotto509.com.lotto509.DialogTirage;
 import lotto509.com.lotto509.R;
 import lotto509.com.lotto509.fragments.Midi;
 import lotto509.com.lotto509.fragments.Soir;
 
 public class listeTirage extends AppCompatActivity {
+
+    FloatingActionButton fabAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,17 @@ public class listeTirage extends AppCompatActivity {
         PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabsLisTirage);
         //attach the pager
         tabStrip.setViewPager(vpPage);
+
+        fabAdd = (FloatingActionButton) findViewById(R.id.fabAddTirage);
+        fabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getSupportFragmentManager();
+                DialogTirage alertDialog = DialogTirage.newInstance("Ajouter Tirage");
+                alertDialog.show(fm, "fragment_alert");
+
+            }
+        });
 
 
     }
