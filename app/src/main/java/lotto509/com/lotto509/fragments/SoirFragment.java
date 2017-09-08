@@ -17,7 +17,7 @@ import com.backendless.persistence.QueryOptions;
 import java.util.ArrayList;
 
 import lotto509.com.lotto509.R;
-import lotto509.com.lotto509.adapters.ArrayAdapterTirage;
+import lotto509.com.lotto509.adapters.ArrayAdapterSoir;
 import lotto509.com.lotto509.models.TirageSoir;
 
 /**
@@ -27,7 +27,7 @@ import lotto509.com.lotto509.models.TirageSoir;
 public class SoirFragment extends Fragment {
 
     private ArrayList<TirageSoir> listTirage;
-    private ArrayAdapterTirage arrayAdapterTirage;
+    private ArrayAdapterSoir arrayAdapterTirage;
     ListView lvTirageSoir;
 
 
@@ -40,7 +40,7 @@ public class SoirFragment extends Fragment {
 
         lvTirageSoir = (ListView) v.findViewById(R.id.lvTirageSoir);
         listTirage = new ArrayList<>();
-        arrayAdapterTirage = new ArrayAdapterTirage(getActivity(), listTirage);
+        arrayAdapterTirage = new ArrayAdapterSoir(getActivity(), listTirage);
         lvTirageSoir.setAdapter(arrayAdapterTirage);
 
         loadTirage();

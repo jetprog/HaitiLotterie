@@ -1,7 +1,5 @@
 package lotto509.com.lotto509.models;
 
-import java.util.Date;
-
 /**
  * Created by Carly Baja on 9/7/2017.
  */
@@ -12,18 +10,18 @@ public class Tirage {
     private String premierLot;
     private String deuxiemeLot;
     private String troisiemeLot;
-    private Date dateTirage;
+    private String dateTirage;
     private String type;
 
     public Tirage() {
 
     }
 
-    public Date getDateTirage() {
+    public String getDateTirage() {
         return dateTirage;
     }
 
-    public void setDateTirage(Date dateTirage) {
+    public void setDateTirage(String dateTirage) {
         this.dateTirage = dateTirage;
     }
 

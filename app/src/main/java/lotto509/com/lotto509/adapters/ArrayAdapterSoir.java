@@ -15,10 +15,10 @@ import lotto509.com.lotto509.models.TirageSoir;
 /**
  * Created by SET JETRO on 2/16/2017.
  */
-public class ArrayAdapterTirage extends ArrayAdapter<TirageSoir> {
+public class ArrayAdapterSoir extends ArrayAdapter<TirageSoir> {
 
         //constructor
-        public ArrayAdapterTirage(Context context, ArrayList<TirageSoir> tirageList)
+        public ArrayAdapterSoir(Context context, ArrayList<TirageSoir> tirageList)
         {
             super(context, android.R.layout.simple_list_item_1, tirageList);
         }

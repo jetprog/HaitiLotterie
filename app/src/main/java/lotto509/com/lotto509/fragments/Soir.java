@@ -17,8 +17,8 @@ import com.backendless.persistence.QueryOptions;
 import java.util.ArrayList;
 
 import lotto509.com.lotto509.R;
-import lotto509.com.lotto509.adapters.ArrayAdapterMidi;
-import lotto509.com.lotto509.models.TirageMidi;
+import lotto509.com.lotto509.adapters.AdapterTirage;
+import lotto509.com.lotto509.models.Tirage;
 
 /**
  * Created by Carly Baja on 9/7/2017.
@@ -26,8 +26,8 @@ import lotto509.com.lotto509.models.TirageMidi;
 
 public class Soir extends Fragment {
 
-    private ArrayList<TirageMidi> listTirage;
-    private ArrayAdapterMidi arrayAdapterTirage;
+    private ArrayList<Tirage> listTirage;
+    private AdapterTirage arrayAdapterTirage;
     ListView lvTirageMidi;
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
@@ -35,12 +35,12 @@ public class Soir extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment
-        View v = inflater.inflate(R.layout.midi_fragment, parent, false);
+        View v = inflater.inflate(R.layout.fragment_soir, parent, false);
 
 
-        lvTirageMidi = (ListView) v.findViewById(R.id.lvTirageMidi);
+        lvTirageMidi = (ListView) v.findViewById(R.id.lvSoir);
         listTirage = new ArrayList<>();
-        arrayAdapterTirage = new ArrayAdapterMidi(getActivity(), listTirage);
+        arrayAdapterTirage = new AdapterTirage(getActivity(), listTirage);
         lvTirageMidi.setAdapter(arrayAdapterTirage);
 
 
@@ -53,17 +53,18 @@ public class Soir extends Fragment {
 
     public void loadTirage(){
 
+        String query = "type = 'soir'";
         QueryOptions queryOptions = new QueryOptions();
         final int PAGESIZE = 100;
         queryOptions.setPageSize(PAGESIZE);
-        //queryOptions.addSortByOption("nom ASC");
+        queryOptions.addSortByOption("dateTirage ASC");
         BackendlessDataQuery dataQuery = new BackendlessDataQuery();
-        //dataQuery.setWhereClause(query);
+        dataQuery.setWhereClause(query);
         dataQuery.setQueryOptions(queryOptions);
 
-        Backendless.Persistence.of( TirageMidi.class).find(dataQuery, new AsyncCallback<BackendlessCollection<TirageMidi>>(){
+        Backendless.Persistence.of( Tirage.class).find(dataQuery, new AsyncCallback<BackendlessCollection<Tirage>>(){
             @Override
-            public void handleResponse( BackendlessCollection<TirageMidi> foundTirage )
+            public void handleResponse( BackendlessCollection<Tirage> foundTirage )
             {
 
                 int size  = foundTirage.getCurrentPage().size();;
@@ -71,7 +72,7 @@ public class Soir extends Fragment {
                 if( size > 0 ) {
                     // all Categorie_Ref instances have been found
                     //Log.d("DEBUG", String.valueOf("categories added - " + size));
-                    listTirage.addAll((ArrayList<TirageMidi>) foundTirage.getCurrentPage());
+                    listTirage.addAll((ArrayList<Tirage>) foundTirage.getCurrentPage());
 
                     if (size == PAGESIZE) {
                         foundTirage.nextPage(this);
