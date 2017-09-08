@@ -24,7 +24,8 @@
         <activity android:name=".activity.TirageActivity" />
         <activity android:name=".activity.ProbabilityActivity" />
         <activity android:name=".fragments.ColonneFragment" />
-        <activity android:name=".fragments.KonpayelFragment"></activity>
+        <activity android:name=".fragments.KonpayelFragment" />
+        <activity android:name=".activity.listeTirage"></activity>
     </application>
 
 </manifest>
