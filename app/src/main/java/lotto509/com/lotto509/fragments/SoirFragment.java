@@ -54,7 +54,7 @@ public class SoirFragment extends Fragment {
         QueryOptions queryOptions = new QueryOptions();
         final int PAGESIZE = 100;
         queryOptions.setPageSize(PAGESIZE);
-        //queryOptions.addSortByOption("nom ASC");
+        queryOptions.addSortByOption("dateTirage ASC");
         BackendlessDataQuery dataQuery = new BackendlessDataQuery();
         //dataQuery.setWhereClause(query);
         dataQuery.setQueryOptions(queryOptions);
