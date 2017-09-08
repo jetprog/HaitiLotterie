@@ -141,7 +141,7 @@ public class Values {
         Konpayel konp32 = new Konpayel("32", "65", "98");
         konpList.add(konp32);
         Konpayel konp33 = new Konpayel("33", "66", "99");
-        konpList.add(konp3);
+        konpList.add(konp33);
 
 
         return konpList;

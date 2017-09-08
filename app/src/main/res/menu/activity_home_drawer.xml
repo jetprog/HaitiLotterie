@@ -13,7 +13,12 @@
         <item
             android:id="@+id/itProbabilite"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Probabilité" />
+            android:title="séquence" />
+
+        <item
+            android:id="@+id/itBoulChans"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Probabilité du jour" />
 
     </group>
 

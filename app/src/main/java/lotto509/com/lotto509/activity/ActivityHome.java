@@ -184,11 +184,15 @@ public class ActivityHome extends AppCompatActivity
             // Handle the Tirage action
             showProbabilite();
 
+
+        } else if (id == R.id.itBoulChans) {
+
         } else if (id == R.id.itShare) {
 
         } else if (id == R.id.itSend) {
 
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
