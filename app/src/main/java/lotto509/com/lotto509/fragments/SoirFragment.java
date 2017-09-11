@@ -26,8 +26,9 @@ import lotto509.com.lotto509.models.TirageSoir;
 
 public class SoirFragment extends Fragment {
 
-    private ArrayList<TirageSoir> listTirage;
-    private ArrayAdapterSoir arrayAdapterTirage;
+
+    private ArrayList<TirageSoir> listTirageSoir;
+    private ArrayAdapterSoir arrayAdapterTirageSoir;
     ListView lvTirageSoir;
 
 
@@ -39,9 +40,9 @@ public class SoirFragment extends Fragment {
         View v = inflater.inflate(R.layout.soir_fragment, parent, false);
 
         lvTirageSoir = (ListView) v.findViewById(R.id.lvTirageSoir);
-        listTirage = new ArrayList<>();
-        arrayAdapterTirage = new ArrayAdapterSoir(getActivity(), listTirage);
-        lvTirageSoir.setAdapter(arrayAdapterTirage);
+		listTirageSoir = new ArrayList<>();
+        arrayAdapterTirageSoir = new ArrayAdapterSoir(getActivity(), listTirageSoir);
+        lvTirageSoir.setAdapter(arrayAdapterTirageSoir);
 
         loadTirage();
 
@@ -54,7 +55,7 @@ public class SoirFragment extends Fragment {
         QueryOptions queryOptions = new QueryOptions();
         final int PAGESIZE = 100;
         queryOptions.setPageSize(PAGESIZE);
-        //queryOptions.addSortByOption("nom ASC");
+        queryOptions.addSortByOption("dateTirage ASC");
         BackendlessDataQuery dataQuery = new BackendlessDataQuery();
         //dataQuery.setWhereClause(query);
         dataQuery.setQueryOptions(queryOptions);
@@ -69,14 +70,14 @@ public class SoirFragment extends Fragment {
                 if( size > 0 ) {
                     // all Categorie_Ref instances have been found
                     //Log.d("DEBUG", String.valueOf("categories added - " + size));
-                    listTirage.addAll((ArrayList<TirageSoir>) foundTirage.getCurrentPage());
+                    listTirageSoir.addAll((ArrayList<TirageSoir>) foundTirage.getCurrentPage());
 
                     if (size == PAGESIZE) {
                         foundTirage.nextPage(this);
 
                     }
 
-                    arrayAdapterTirage.notifyDataSetChanged();
+                    arrayAdapterTirageSoir.notifyDataSetChanged();
                 }
 
                 /*Iterator<TirageSoir> tirageIterator = foundTirage.getCurrentPage().iterator();

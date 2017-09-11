@@ -20,6 +20,11 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Probabilité du jour" />
 
+        <item
+            android:id="@+id/itJouer"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Jouer" />
+
     </group>
 
     <item android:title="Communicate">
@@ -31,7 +36,7 @@
             <item
                 android:id="@+id/itSend"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="A propos" />
         </menu>
     </item>
 
