@@ -50,7 +50,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="11/11/11"
+            android:text="--/--/--"
             android:textSize="20sp"
             android:textStyle="bold"
             android:id="@+id/tvDateTirageMidi"
@@ -70,7 +70,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="478"
+            android:text="---"
             android:textSize="20sp"
             android:id="@+id/tvLotto3Midi"
             android:layout_marginTop="5dp"
@@ -89,7 +89,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1290"
+            android:text="----"
             android:textSize="20sp"
             android:id="@+id/tvLotto4Midi"
             android:layout_marginTop="5dp"
@@ -118,7 +118,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="11/11/11"
+            android:text="--/--/--"
             android:textSize="20sp"
             android:textStyle="bold"
             android:id="@+id/tvDateTirageSoir"
@@ -138,7 +138,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="356"
+            android:text="---"
             android:textSize="20sp"
             android:id="@+id/tvLotto3Soir"
             android:layout_marginTop="5dp"
@@ -157,7 +157,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3456"
+            android:text="----"
             android:textSize="20sp"
             android:id="@+id/tvLotto4Soir"
             android:layout_marginTop="5dp"

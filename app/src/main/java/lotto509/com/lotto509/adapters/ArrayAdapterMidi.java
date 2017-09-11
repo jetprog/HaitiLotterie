@@ -16,10 +16,10 @@ import lotto509.com.lotto509.models.TirageMidi;
  * Created by Carly Baja on 8/24/2017.
  */
 
-public class ArrayAdapterSoir extends ArrayAdapter<TirageMidi> {
+public class ArrayAdapterMidi extends ArrayAdapter<TirageMidi> {
 
     //constructor
-    public ArrayAdapterSoir(Context context, ArrayList<TirageMidi> tirageList)
+    public ArrayAdapterMidi(Context context, ArrayList<TirageMidi> tirageList)
     {
         super(context, android.R.layout.simple_list_item_1, tirageList);
     }

@@ -47,15 +47,17 @@ public class TchalaActivity extends AppCompatActivity {
         listTchala.setAdapter(tchalaAdapter);
         setupViews();
 
-        listTchala.setOnScrollListener(new EndlessScrollListener() {
+        listTchala.setOnScrollListener(new EndlessScrollListener(5, 0) {
             @Override
             public boolean onLoadMore(int page, int totalItemsCount) {
-                customLoadMoreDataFromApi(page);
-                // or customLoadMoreDataFromApi(totalItemsCount);
-                return true; // ONLY if more data is actually being loaded; false otherwise.
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to your AdapterView
+
+                //customLoadMoreDataFromApi();
+                //Toast.makeText(SearchActivity.this, "LoadMore "+searchPage+" - "+totalItemsCount, Toast.LENGTH_LONG).show();
+                return true;
             }
         });
-
     }
 
     @Override
@@ -72,11 +74,11 @@ public class TchalaActivity extends AppCompatActivity {
         return(super.onOptionsItemSelected(item));
     }
 
-    private void customLoadMoreDataFromApi(int page) {
+    private void customLoadMoreDataFromApi() {
 
         QueryOptions queryOptions = new QueryOptions();
         queryOptions.setPageSize(30);
-        queryOptions.setOffset(page);
+        //queryOptions.setOffset(page);
         queryOptions.addSortByOption("nom ASC");
         BackendlessDataQuery dataQuery = new BackendlessDataQuery();
         //dataQuery.setWhereClause(query);
@@ -112,7 +114,8 @@ public class TchalaActivity extends AppCompatActivity {
     private void setupViews() {
 
         QueryOptions queryOptions = new QueryOptions();
-        queryOptions.setPageSize(30);
+        final int PAGESIZE = 100;
+        queryOptions.setPageSize(PAGESIZE);
         queryOptions.addSortByOption("nom ASC");
         BackendlessDataQuery dataQuery = new BackendlessDataQuery();
         //dataQuery.setWhereClause(query);
@@ -121,9 +124,30 @@ public class TchalaActivity extends AppCompatActivity {
 
         Backendless.Persistence.of( Tchala.class).find(dataQuery, new AsyncCallback<BackendlessCollection<Tchala>>(){
             @Override
-            public void handleResponse( BackendlessCollection<Tchala> foundPatients )
+            public void handleResponse( BackendlessCollection<Tchala> foundTchala )
             {
-                Iterator<Tchala> tchalaIterator = foundPatients.getCurrentPage().iterator();
+
+
+                int size  = foundTchala.getCurrentPage().size();;
+
+                if( size > 0 )
+                {
+                    // all Categorie_Ref instances have been found
+                    //Log.d("DEBUG", String.valueOf("categories added - " + size));
+                    tchalaliste.addAll((ArrayList<Tchala>) foundTchala.getCurrentPage());
+
+                    if(size == PAGESIZE) {
+                        foundTchala.nextPage(this);
+
+                    }
+
+                        tchalaAdapter.notifyDataSetChanged();
+
+
+                }
+
+
+                /*Iterator<Tchala> tchalaIterator = foundTchala.getCurrentPage().iterator();
                 while (tchalaIterator.hasNext())
                 {
                     Tchala newPatient = tchalaIterator.next();
@@ -131,7 +155,7 @@ public class TchalaActivity extends AppCompatActivity {
 
                 }
                 tchalaAdapter.notifyDataSetChanged();
-                //progress.setVisibility(View.GONE);
+                //progress.setVisibility(View.GONE);*/
 
             }
             @Override

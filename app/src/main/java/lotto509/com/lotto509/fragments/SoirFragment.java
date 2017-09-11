@@ -11,9 +11,10 @@ import com.backendless.Backendless;
 import com.backendless.BackendlessCollection;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.BackendlessDataQuery;
+import com.backendless.persistence.QueryOptions;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import lotto509.com.lotto509.R;
 import lotto509.com.lotto509.adapters.ArrayAdapterTirage;
@@ -42,19 +43,50 @@ public class SoirFragment extends Fragment {
         arrayAdapterTirage = new ArrayAdapterTirage(getActivity(), listTirage);
         lvTirageSoir.setAdapter(arrayAdapterTirage);
 
+        loadTirage();
 
-        Backendless.Persistence.of( TirageSoir.class).find(new AsyncCallback<BackendlessCollection<TirageSoir>>(){
+
+        return v;
+    }
+
+    public void loadTirage(){
+
+        QueryOptions queryOptions = new QueryOptions();
+        final int PAGESIZE = 100;
+        queryOptions.setPageSize(PAGESIZE);
+        queryOptions.addSortByOption("dateTirage ASC");
+        BackendlessDataQuery dataQuery = new BackendlessDataQuery();
+        //dataQuery.setWhereClause(query);
+        dataQuery.setQueryOptions(queryOptions);
+
+        Backendless.Persistence.of( TirageSoir.class).find(dataQuery, new AsyncCallback<BackendlessCollection<TirageSoir>>(){
             @Override
             public void handleResponse( BackendlessCollection<TirageSoir> foundTirage )
             {
-                Iterator<TirageSoir> tirageIterator = foundTirage.getCurrentPage().iterator();
+
+                int size  = foundTirage.getCurrentPage().size();;
+
+                if( size > 0 ) {
+                    // all Categorie_Ref instances have been found
+                    //Log.d("DEBUG", String.valueOf("categories added - " + size));
+                    listTirage.addAll((ArrayList<TirageSoir>) foundTirage.getCurrentPage());
+
+                    if (size == PAGESIZE) {
+                        foundTirage.nextPage(this);
+
+                    }
+
+                    arrayAdapterTirage.notifyDataSetChanged();
+                }
+
+                /*Iterator<TirageSoir> tirageIterator = foundTirage.getCurrentPage().iterator();
                 while (tirageIterator.hasNext())
                 {
                     TirageSoir newTirage = tirageIterator.next();
                     listTirage.add(newTirage);
 
                 }
-                arrayAdapterTirage.notifyDataSetChanged();
+                arrayAdapterTirage.notifyDataSetChanged();*/
 
 
             }
@@ -65,8 +97,6 @@ public class SoirFragment extends Fragment {
             }
 
         });
-
-        return v;
     }
 
     // This event is triggered soon after onCreateView().

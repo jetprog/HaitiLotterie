@@ -11,12 +11,13 @@ import com.backendless.Backendless;
 import com.backendless.BackendlessCollection;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.BackendlessDataQuery;
+import com.backendless.persistence.QueryOptions;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import lotto509.com.lotto509.R;
-import lotto509.com.lotto509.adapters.ArrayAdapterSoir;
+import lotto509.com.lotto509.adapters.ArrayAdapterMidi;
 import lotto509.com.lotto509.models.TirageMidi;
 
 /**
@@ -26,7 +27,7 @@ import lotto509.com.lotto509.models.TirageMidi;
 public class MidiFragment extends Fragment {
 
     private ArrayList<TirageMidi> listTirage;
-    private ArrayAdapterSoir arrayAdapterTirage;
+    private ArrayAdapterMidi arrayAdapterTirage;
     ListView lvTirageMidi;
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
@@ -39,23 +40,55 @@ public class MidiFragment extends Fragment {
 
         lvTirageMidi = (ListView) v.findViewById(R.id.lvTirageMidi);
         listTirage = new ArrayList<>();
-        arrayAdapterTirage = new ArrayAdapterSoir(getActivity(), listTirage);
+        arrayAdapterTirage = new ArrayAdapterMidi(getActivity(), listTirage);
         lvTirageMidi.setAdapter(arrayAdapterTirage);
 
 
+        loadTirage();
 
-        Backendless.Persistence.of( TirageMidi.class).find(new AsyncCallback<BackendlessCollection<TirageMidi>>(){
+
+
+        return v;
+    }
+
+    public void loadTirage(){
+
+        QueryOptions queryOptions = new QueryOptions();
+        final int PAGESIZE = 100;
+        queryOptions.setPageSize(PAGESIZE);
+        queryOptions.addSortByOption("dateTirage ASC");
+        BackendlessDataQuery dataQuery = new BackendlessDataQuery();
+        //dataQuery.setWhereClause(query);
+        dataQuery.setQueryOptions(queryOptions);
+
+        Backendless.Persistence.of( TirageMidi.class).find(dataQuery, new AsyncCallback<BackendlessCollection<TirageMidi>>(){
             @Override
             public void handleResponse( BackendlessCollection<TirageMidi> foundTirage )
             {
-                Iterator<TirageMidi> tirageIterator = foundTirage.getCurrentPage().iterator();
+
+                int size  = foundTirage.getCurrentPage().size();;
+
+                if( size > 0 ) {
+                    // all Categorie_Ref instances have been found
+                    //Log.d("DEBUG", String.valueOf("categories added - " + size));
+                    listTirage.addAll((ArrayList<TirageMidi>) foundTirage.getCurrentPage());
+
+                    if (size == PAGESIZE) {
+                        foundTirage.nextPage(this);
+
+                    }
+
+                    arrayAdapterTirage.notifyDataSetChanged();
+                }
+
+                /*Iterator<TirageMidi> tirageIterator = foundTirage.getCurrentPage().iterator();
                 while (tirageIterator.hasNext())
                 {
                     TirageMidi newTirage = tirageIterator.next();
                     listTirage.add(newTirage);
 
                 }
-                arrayAdapterTirage.notifyDataSetChanged();
+                arrayAdapterTirage.notifyDataSetChanged();*/
 
 
             }
@@ -67,7 +100,6 @@ public class MidiFragment extends Fragment {
 
         });
 
-        return v;
     }
 
     // This event is triggered soon after onCreateView().
