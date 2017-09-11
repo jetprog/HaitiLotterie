@@ -26,8 +26,8 @@ import lotto509.com.lotto509.models.TirageSoir;
 
 public class SoirFragment extends Fragment {
 
-    private ArrayList<TirageSoir> listTirage;
-    private ArrayAdapterTirage arrayAdapterTirage;
+    private ArrayList<TirageSoir> listTirageSoir;
+    private ArrayAdapterTirage arrayAdapterTirageSoir;
     ListView lvTirageSoir;
 
 
@@ -39,9 +39,9 @@ public class SoirFragment extends Fragment {
         View v = inflater.inflate(R.layout.soir_fragment, parent, false);
 
         lvTirageSoir = (ListView) v.findViewById(R.id.lvTirageSoir);
-        listTirage = new ArrayList<>();
-        arrayAdapterTirage = new ArrayAdapterTirage(getActivity(), listTirage);
-        lvTirageSoir.setAdapter(arrayAdapterTirage);
+        listTirageSoir = new ArrayList<>();
+        arrayAdapterTirageSoir = new ArrayAdapterTirage(getActivity(), listTirageSoir);
+        lvTirageSoir.setAdapter(arrayAdapterTirageSoir);
 
         loadTirage();
 
@@ -69,14 +69,14 @@ public class SoirFragment extends Fragment {
                 if( size > 0 ) {
                     // all Categorie_Ref instances have been found
                     //Log.d("DEBUG", String.valueOf("categories added - " + size));
-                    listTirage.addAll((ArrayList<TirageSoir>) foundTirage.getCurrentPage());
+                    listTirageSoir.addAll((ArrayList<TirageSoir>) foundTirage.getCurrentPage());
 
                     if (size == PAGESIZE) {
                         foundTirage.nextPage(this);
 
                     }
 
-                    arrayAdapterTirage.notifyDataSetChanged();
+                    arrayAdapterTirageSoir.notifyDataSetChanged();
                 }
 
                 /*Iterator<TirageSoir> tirageIterator = foundTirage.getCurrentPage().iterator();
