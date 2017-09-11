@@ -189,6 +189,14 @@ public class ActivityHome extends AppCompatActivity
 
         } else if (id == R.id.itShare) {
 
+            String tirageMidi = "Tirage midi: "+ lotto3Midi.getText().toString()+ " "+lotto4Midi.getText().toString();
+            String tirageSoir = "TirageSoir: "+ lotto3Soir.getText().toString()+ " "+lotto4Soir.getText().toString();
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, tirageMidi+ "  "+tirageSoir);
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
+
         } else if (id == R.id.itSend) {
 
         }
