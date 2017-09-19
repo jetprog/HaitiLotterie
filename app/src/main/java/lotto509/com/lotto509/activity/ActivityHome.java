@@ -16,6 +16,13 @@ import android.widget.Toast;
 import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.daimajia.slider.library.Tricks.ViewPagerEx;
+
+import java.util.HashMap;
 
 import lotto509.com.lotto509.R;
 import lotto509.com.lotto509.models.TirageMidi;
@@ -23,7 +30,7 @@ import lotto509.com.lotto509.models.TirageSoir;
 import lotto509.com.lotto509.utils.Backend;
 
 public class ActivityHome extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener  {
 
 
     //declare variable to set value for each textview
@@ -33,12 +40,47 @@ public class ActivityHome extends AppCompatActivity
     private TextView dateTirageSoir;
     private TextView lotto3Soir;
     private TextView lotto4Soir;
+    private SliderLayout mDemoSlider;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        //the slider
+        mDemoSlider = (SliderLayout)findViewById(R.id.slider);
+
+        //the pictures
+        HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
+        file_maps.put("Lotto509",R.drawable.tirage);
+        file_maps.put("Lotto",R.drawable.loto509);
+        file_maps.put("Lotto5094C",R.drawable.loto5094);
+        file_maps.put("Lotto50932", R.drawable.loto50932);
+
+        //the name
+        for(String name : file_maps.keySet()){
+            TextSliderView textSliderView = new TextSliderView(this);
+            // initialize a SliderLayout
+            textSliderView
+                    .description(name)
+                    .image(file_maps.get(name))
+                    .setScaleType(BaseSliderView.ScaleType.Fit)
+                    .setOnSliderClickListener(this);
+
+            //add your extra information
+            textSliderView.bundle(new Bundle());
+            textSliderView.getBundle()
+                    .putString("extra",name);
+
+            mDemoSlider.addSlider(textSliderView);
+        }
+
+        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.ZoomOut);
+        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
+        mDemoSlider.setDuration(5000);
+        mDemoSlider.addOnPageChangeListener(this);
 
         //replace actionbar by toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -213,5 +255,32 @@ public class ActivityHome extends AppCompatActivity
         Intent i = new Intent(ActivityHome.this, ProbabilityActivity.class  );
         startActivity(i);
         finish();
+    }
+
+    @Override
+    protected void onStop() {
+        // To prevent a memory leak on rotation, make sure to call stopAutoCycle() on the slider before activity or fragment is destroyed
+        mDemoSlider.stopAutoCycle();
+        super.onStop();
+    }
+
+    @Override
+    public void onSliderClick(BaseSliderView slider) {
+
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }
