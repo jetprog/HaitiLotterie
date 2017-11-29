@@ -79,7 +79,7 @@ public class ActivityHome extends AppCompatActivity
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.ZoomOut);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-        mDemoSlider.setDuration(5000);
+        mDemoSlider.setDuration(3000);
         mDemoSlider.addOnPageChangeListener(this);
 
         //replace actionbar by toolbar
