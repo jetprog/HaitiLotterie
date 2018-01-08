@@ -1,8 +1,11 @@
 package lotto509.com.lotto509.activity;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -12,7 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.backendless.Backendless;
@@ -21,7 +27,9 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.BackendlessDataQuery;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 
 import lotto509.com.lotto509.R;
@@ -41,6 +49,7 @@ public class TirageActivity extends AppCompatActivity {
     private ArrayList<TirageSoir> listTirageSoir;
     private ArrayAdapterTirage arrayAdapterTirageSoir;
     ListView lvTirageSoir;
+    static SearchView searchView;
 
     FragmentPagerAdapter adapterViewPager;
 
@@ -65,6 +74,7 @@ public class TirageActivity extends AppCompatActivity {
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliderTirage);
         tabLayout.setupWithViewPager(vpPage);
+
 
 
     }
@@ -111,7 +121,19 @@ public class TirageActivity extends AppCompatActivity {
         MenuItem searchItem = menu.findItem(R.id.action_search);
 
 
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //your code here
+                DialogFragment newFragment = new DatePickerFragment();
+                newFragment.show(getSupportFragmentManager(), "Date Tirage");
+//                Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        searchView.setQueryHint("Entrée votre date");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String querySubmit) {
@@ -127,6 +149,7 @@ public class TirageActivity extends AppCompatActivity {
                 return false;
             }
         });
+
 
         return true;
     }
@@ -149,4 +172,48 @@ public class TirageActivity extends AppCompatActivity {
 
         return(super.onOptionsItemSelected(item));
     }
+
+
+
+    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener
+    {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            // Do something with the date chosen by the user
+            final Calendar c = Calendar.getInstance();
+            c.set(Calendar.YEAR, year);
+            c.set(Calendar.MONTH, month);
+            c.set(Calendar.DAY_OF_MONTH, day);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+
+
+
+            searchView.setQuery(simpleDateFormat.format(c.getTime()), false);
+
+
+
+
+        }
+
+
+
+    }
+
 }
+
+
+

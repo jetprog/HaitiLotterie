@@ -56,7 +56,7 @@ public class TchalaActivity extends AppCompatActivity {
         tchalaAdapter = new ArrayAdapterTchala(this, tchalaliste);
         listTchala.setAdapter(tchalaAdapter);
 
-        String url = "http://192.168.0.111:8888/Lotto509/src/routes/tchala.php/api/tchala";
+        String url = "http://192.168.1.8:8888/Lotto509/src/routes/tchala.php/api/tchala";
 
 //        http://localhost:8888/Lotto509/src/routes/tchala.php/api/tchala
 

@@ -22,7 +22,7 @@ public class TirageSoir {
     public TirageSoir(JSONObject jsonObject) throws JSONException {
         this.lotto3= jsonObject.getString("lotto3");
         this.lotto4= jsonObject.getString("lotto4");
-        this.dateTirage = jsonObject.getString("dateTir");
+        this.dateTirage = jsonObject.getString("dateTirage");
 
     }
 
