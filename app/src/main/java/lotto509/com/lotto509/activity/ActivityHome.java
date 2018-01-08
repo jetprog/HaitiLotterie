@@ -101,10 +101,10 @@ public class ActivityHome extends AppCompatActivity
 
 
         //populate data Tirage midi
-        setTirageMidi();
+        //setTirageMidi();
 
         //populate data tirage soir
-        setTirageSoir();
+        //setTirageSoir();
 
 
     }

@@ -7,17 +7,17 @@
     android:background="#ffff00"
     tools:context="lotto509.com.lotto509.activity.TirageActivity">
 
-    <com.astuetz.PagerSlidingTabStrip
-        android:id="@+id/tabsTirage"
-        app:pstsShouldExpand="true"
-        app:pstsTextAllCaps="true"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/sliderTirage"
         android:layout_width="match_parent"
-        android:layout_height="48dp" />
+        android:layout_height="wrap_content"
+        app:tabMode="fixed" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpagerTirage"
-        android:layout_below="@+id/tabsTirage"
+        android:layout_below="@+id/sliderTirage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white" />
+        android:layout_height="wrap_content">
+    </android.support.v4.view.ViewPager>
+
 </RelativeLayout>

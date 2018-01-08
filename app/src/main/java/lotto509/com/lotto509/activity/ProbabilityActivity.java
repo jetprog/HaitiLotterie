@@ -2,6 +2,7 @@ package lotto509.com.lotto509.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -9,13 +10,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.astuetz.PagerSlidingTabStrip;
 
 import lotto509.com.lotto509.R;
 import lotto509.com.lotto509.fragments.ColonneFragment;
 import lotto509.com.lotto509.fragments.KonpayelFragment;
 
 public class ProbabilityActivity extends AppCompatActivity {
+
+    FragmentPagerAdapter adapterViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +28,19 @@ public class ProbabilityActivity extends AppCompatActivity {
 
         //get the veiw pager adapter
         ViewPager vpPage = (ViewPager) findViewById(R.id.viewpager);
+
         //set the view pager for the viewpagerAdapter
         vpPage.setAdapter(new OrderPageAdapter(getSupportFragmentManager()));
-        //find the sliding tabs
-        PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+
         //attach the pager
-        tabStrip.setViewPager(vpPage);
+        adapterViewPager = new OrderPageAdapter(getSupportFragmentManager());
+        vpPage.setAdapter(adapterViewPager);
+
+        //find the sliding tabs
+        // Give the TabLayout the ViewPager
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.slider);
+        tabLayout.setupWithViewPager(vpPage);
+
     }
 
 

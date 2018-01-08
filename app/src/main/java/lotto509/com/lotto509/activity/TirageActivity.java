@@ -2,6 +2,7 @@ package lotto509.com.lotto509.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -41,6 +42,8 @@ public class TirageActivity extends AppCompatActivity {
     private ArrayAdapterTirage arrayAdapterTirageSoir;
     ListView lvTirageSoir;
 
+    FragmentPagerAdapter adapterViewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,14 +52,20 @@ public class TirageActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        //get the veiw pager adapter
         ViewPager vpPage = (ViewPager) findViewById(R.id.viewpagerTirage);
+
         //set the view pager for the viewpagerAdapter
-        vpPage.setAdapter(new OrderPageTirageAdapter(getSupportFragmentManager()));
-        //find the sliding tabs
-        PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabsTirage);
+        vpPage.setAdapter(new ProbabilityActivity.OrderPageAdapter(getSupportFragmentManager()));
+
         //attach the pager
-        tabStrip.setViewPager(vpPage);
+        adapterViewPager = new OrderPageTirageAdapter(getSupportFragmentManager());
+        vpPage.setAdapter(adapterViewPager);
+
+        //find the sliding tabs
+        // Give the TabLayout the ViewPager
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliderTirage);
+        tabLayout.setupWithViewPager(vpPage);
+
 
     }
 
@@ -125,74 +134,7 @@ public class TirageActivity extends AppCompatActivity {
 
     private void searchTirage(String userQuery){
 
-        lvTirageMidi = (ListView) findViewById(R.id.lvTirageMidi);
-        listTirage = new ArrayList<>();
-        arrayAdapterTirage = new ArrayAdapterMidi(this, listTirage);
-        lvTirageMidi.setAdapter(arrayAdapterTirage);
-
-        lvTirageSoir = (ListView) findViewById(R.id.lvTirageSoir);
-        listTirageSoir = new ArrayList<>();
-        arrayAdapterTirageSoir = new ArrayAdapterTirage(this, listTirageSoir);
-        lvTirageSoir.setAdapter(arrayAdapterTirageSoir);
-
-
-        String query = " dateTirage = '" +  userQuery + "'";
-        BackendlessDataQuery dataQuery = new BackendlessDataQuery();
-        dataQuery.setWhereClause(query);
-
-        //backendless api to find a patient with query search
-        Backendless.Persistence.of( TirageMidi.class).find(dataQuery, new AsyncCallback<BackendlessCollection<TirageMidi>>(){
-            @Override
-            public void handleResponse( BackendlessCollection<TirageMidi> foundPatients )
-            {
-                Iterator<TirageMidi> patientIterator = foundPatients.getCurrentPage().iterator();
-                while (patientIterator.hasNext())
-                {
-                    TirageMidi newPatient = patientIterator.next();
-                    listTirage.add(newPatient);
-
-                }
-                //           patientArrayAdapter.clear();
-                arrayAdapterTirage.notifyDataSetChanged();
-                //progress.setVisibility(View.GONE);
-
-            }
-            @Override
-            public void handleFault( BackendlessFault fault )
-            {
-                //progress.setVisibility(View.GONE);
-            }
-
-        });
-
-        //backendless api to find a patient with query search
-        Backendless.Persistence.of( TirageSoir.class).find(dataQuery, new AsyncCallback<BackendlessCollection<TirageSoir>>(){
-            @Override
-            public void handleResponse( BackendlessCollection<TirageSoir> foundPatients )
-            {
-                Iterator<TirageSoir> patientIterator = foundPatients.getCurrentPage().iterator();
-                while (patientIterator.hasNext())
-                {
-                    TirageSoir newPatient = patientIterator.next();
-                    listTirageSoir.add(newPatient);
-
-                }
-                //           patientArrayAdapter.clear();
-                arrayAdapterTirageSoir.notifyDataSetChanged();
-                //progress.setVisibility(View.GONE);
-
-            }
-            @Override
-            public void handleFault( BackendlessFault fault )
-            {
-                //progress.setVisibility(View.GONE);
-            }
-
-        });
-
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

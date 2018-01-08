@@ -2,10 +2,12 @@ package lotto509.com.lotto509.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.backendless.Backendless;
 import com.backendless.BackendlessCollection;
@@ -13,11 +15,19 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.BackendlessDataQuery;
 import com.backendless.persistence.QueryOptions;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import cz.msebera.android.httpclient.Header;
 import lotto509.com.lotto509.R;
 import lotto509.com.lotto509.adapters.ArrayAdapterTirage;
+import lotto509.com.lotto509.models.TirageMidi;
 import lotto509.com.lotto509.models.TirageSoir;
 
 /**
@@ -51,51 +61,34 @@ public class SoirFragment extends Fragment {
 
     public void loadTirage(){
 
-        QueryOptions queryOptions = new QueryOptions();
-        final int PAGESIZE = 100;
-        queryOptions.setPageSize(PAGESIZE);
-        queryOptions.addSortByOption("dateTirage ASC");
-        BackendlessDataQuery dataQuery = new BackendlessDataQuery();
-        //dataQuery.setWhereClause(query);
-        dataQuery.setQueryOptions(queryOptions);
+        String url = "http://192.168.1.8:8888/Lotto509/src/routes/tirageSoir.php/api/tirageSoir";
 
-        Backendless.Persistence.of( TirageSoir.class).find(dataQuery, new AsyncCallback<BackendlessCollection<TirageSoir>>(){
+        AsyncHttpClient client = new AsyncHttpClient();
+
+
+
+        client.get(url, new JsonHttpResponseHandler(){
             @Override
-            public void handleResponse( BackendlessCollection<TirageSoir> foundTirage )
-            {
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                JSONArray tirageResults = null;
 
-                int size  = foundTirage.getCurrentPage().size();;
-
-                if( size > 0 ) {
-                    // all Categorie_Ref instances have been found
-                    //Log.d("DEBUG", String.valueOf("categories added - " + size));
-                    listTirageSoir.addAll((ArrayList<TirageSoir>) foundTirage.getCurrentPage());
-
-                    if (size == PAGESIZE) {
-                        foundTirage.nextPage(this);
-
-                    }
-
+                try {
+                    tirageResults = response.getJSONArray("tirageSoir");
+                    listTirageSoir.addAll(TirageSoir.fromJSONArray(tirageResults));
                     arrayAdapterTirageSoir.notifyDataSetChanged();
+                    Log.d("DEBUG", listTirageSoir.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-
-                /*Iterator<TirageSoir> tirageIterator = foundTirage.getCurrentPage().iterator();
-                while (tirageIterator.hasNext())
-                {
-                    TirageSoir newTirage = tirageIterator.next();
-                    listTirage.add(newTirage);
-
-                }
-                arrayAdapterTirage.notifyDataSetChanged();*/
-
 
             }
+
             @Override
-            public void handleFault( BackendlessFault fault )
-            {
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
 
+                Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
             }
-
         });
     }
 

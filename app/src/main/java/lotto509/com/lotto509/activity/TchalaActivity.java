@@ -5,9 +5,11 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.backendless.Backendless;
 import com.backendless.BackendlessCollection;
@@ -15,6 +17,14 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.BackendlessDataQuery;
 import com.backendless.persistence.QueryOptions;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -45,19 +55,37 @@ public class TchalaActivity extends AppCompatActivity {
         tchalaliste = new ArrayList<>();
         tchalaAdapter = new ArrayAdapterTchala(this, tchalaliste);
         listTchala.setAdapter(tchalaAdapter);
-        setupViews();
 
-        listTchala.setOnScrollListener(new EndlessScrollListener(5, 0) {
+        String url = "http://192.168.0.111:8888/Lotto509/src/routes/tchala.php/api/tchala";
+
+//        http://localhost:8888/Lotto509/src/routes/tchala.php/api/tchala
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        client.get(url, new JsonHttpResponseHandler(){
             @Override
-            public boolean onLoadMore(int page, int totalItemsCount) {
-                // Triggered only when new data needs to be appended to the list
-                // Add whatever code is needed to append new items to your AdapterView
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                JSONArray tchalaResults = null;
 
-                //customLoadMoreDataFromApi();
-                //Toast.makeText(SearchActivity.this, "LoadMore "+searchPage+" - "+totalItemsCount, Toast.LENGTH_LONG).show();
-                return true;
+                try {
+                    tchalaResults = response.getJSONArray("tchala");
+                    tchalaliste.addAll(Tchala.fromJSONArray(tchalaResults));
+                    tchalaAdapter.notifyDataSetChanged();
+                    Log.d("DEBUG", tchalaliste.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+
+                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     @Override
@@ -111,61 +139,6 @@ public class TchalaActivity extends AppCompatActivity {
     }
 
 
-    private void setupViews() {
-
-        QueryOptions queryOptions = new QueryOptions();
-        final int PAGESIZE = 100;
-        queryOptions.setPageSize(PAGESIZE);
-        queryOptions.addSortByOption("nom ASC");
-        BackendlessDataQuery dataQuery = new BackendlessDataQuery();
-        //dataQuery.setWhereClause(query);
-        dataQuery.setQueryOptions(queryOptions);
-
-
-        Backendless.Persistence.of( Tchala.class).find(dataQuery, new AsyncCallback<BackendlessCollection<Tchala>>(){
-            @Override
-            public void handleResponse( BackendlessCollection<Tchala> foundTchala )
-            {
-
-
-                int size  = foundTchala.getCurrentPage().size();;
-
-                if( size > 0 )
-                {
-                    // all Categorie_Ref instances have been found
-                    //Log.d("DEBUG", String.valueOf("categories added - " + size));
-                    tchalaliste.addAll((ArrayList<Tchala>) foundTchala.getCurrentPage());
-
-                    if(size == PAGESIZE) {
-                        foundTchala.nextPage(this);
-
-                    }
-
-                        tchalaAdapter.notifyDataSetChanged();
-
-
-                }
-
-
-                /*Iterator<Tchala> tchalaIterator = foundTchala.getCurrentPage().iterator();
-                while (tchalaIterator.hasNext())
-                {
-                    Tchala newPatient = tchalaIterator.next();
-                    tchalaliste.add(newPatient);
-
-                }
-                tchalaAdapter.notifyDataSetChanged();
-                //progress.setVisibility(View.GONE);*/
-
-            }
-            @Override
-            public void handleFault(BackendlessFault fault )
-            {
-                //progress.setVisibility(View.GONE);
-            }
-
-        });
-    }
 
 
 
@@ -204,35 +177,38 @@ public class TchalaActivity extends AppCompatActivity {
         listTchala.setAdapter(tchalaAdapter);
 
 
-        String query = " nom = '" +  userQuery + "'";
-        BackendlessDataQuery dataQuery = new BackendlessDataQuery();
-        dataQuery.setWhereClause(query);
+        String query = userQuery;
 
-        //backendless api to find a patient with query search
-        Backendless.Persistence.of( Tchala.class).find(dataQuery, new AsyncCallback<BackendlessCollection<Tchala>>(){
+        String url = "http://192.168.1.8:8888/Lotto509/src/routes/tchala.php/api/tchala";
+
+//        http://localhost:8888/Lotto509/src/routes/tchala.php/api/tchala
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+
+        client.get(url + '/' + query, new JsonHttpResponseHandler(){
             @Override
-            public void handleResponse( BackendlessCollection<Tchala> foundPatients )
-            {
-                Iterator<Tchala> patientIterator = foundPatients.getCurrentPage().iterator();
-                while (patientIterator.hasNext())
-                {
-                    Tchala newPatient = patientIterator.next();
-                    tchalaliste.add(newPatient);
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                JSONArray tchalaResults = null;
 
+                try {
+                    tchalaResults = response.getJSONArray("tchala");
+                    tchalaliste.addAll(Tchala.fromJSONArray(tchalaResults));
+                    tchalaAdapter.notifyDataSetChanged();
+                    Log.d("DEBUG", tchalaliste.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                //           patientArrayAdapter.clear();
-                tchalaAdapter.notifyDataSetChanged();
-                //progress.setVisibility(View.GONE);
 
             }
+
             @Override
-            public void handleFault( BackendlessFault fault )
-            {
-                //progress.setVisibility(View.GONE);
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+
+                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
             }
-
         });
-
     }
 
 
