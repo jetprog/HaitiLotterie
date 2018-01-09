@@ -13,6 +13,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,17 +27,25 @@ import com.backendless.BackendlessCollection;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.BackendlessDataQuery;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 
+import cz.msebera.android.httpclient.Header;
 import lotto509.com.lotto509.R;
 import lotto509.com.lotto509.adapters.ArrayAdapterMidi;
 import lotto509.com.lotto509.adapters.ArrayAdapterTirage;
 import lotto509.com.lotto509.fragments.MidiFragment;
 import lotto509.com.lotto509.fragments.SoirFragment;
+import lotto509.com.lotto509.models.Tchala;
 import lotto509.com.lotto509.models.TirageMidi;
 import lotto509.com.lotto509.models.TirageSoir;
 
@@ -157,6 +166,84 @@ public class TirageActivity extends AppCompatActivity {
 
     private void searchTirage(String userQuery){
 
+
+        lvTirageMidi = (ListView) findViewById(R.id.lvTirageMidi);
+        listTirage = new ArrayList<>();
+        arrayAdapterTirage = new ArrayAdapterMidi(this, listTirage);
+        lvTirageMidi.setAdapter(arrayAdapterTirage);
+
+        lvTirageSoir = (ListView) findViewById(R.id.lvTirageSoir);
+        listTirageSoir = new ArrayList<>();
+        arrayAdapterTirageSoir = new ArrayAdapterTirage(this, listTirageSoir);
+        lvTirageSoir.setAdapter(arrayAdapterTirageSoir);
+
+
+        String query = userQuery;
+
+        String ip = ActivityHome.ipAdress;
+
+        String url = ip + "Lotto509/src/routes/tirageMidi.php/api/tirageMidi";
+
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+
+        client.get(url + '/' + query, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                JSONArray tchalaResults = null;
+
+                try {
+                    tchalaResults = response.getJSONArray("tchala");
+                    listTirage.addAll(TirageMidi.fromJSONArray(tchalaResults));
+                    arrayAdapterTirage.notifyDataSetChanged();
+                    Log.d("DEBUG", listTirage.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+
+                Toast.makeText(getApplicationContext(), String.valueOf(statusCode), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        String urlSoir = "http://192.168.1.8:8888/Lotto509/src/routes/tirageSoir.php/api/tirageSoir";
+
+
+        AsyncHttpClient clientSoir = new AsyncHttpClient();
+
+
+        clientSoir.get(urlSoir + '/' + query, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                JSONArray tchalaResults = null;
+
+                try {
+                    tchalaResults = response.getJSONArray("tchala");
+                    listTirageSoir.addAll(TirageSoir.fromJSONArray(tchalaResults));
+                    arrayAdapterTirageSoir.notifyDataSetChanged();
+                    Log.d("DEBUG", listTirageSoir.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+
+                Toast.makeText(getApplicationContext(), String.valueOf(statusCode) , Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
     }
 
     @Override
@@ -198,7 +285,7 @@ public class TirageActivity extends AppCompatActivity {
             c.set(Calendar.YEAR, year);
             c.set(Calendar.MONTH, month);
             c.set(Calendar.DAY_OF_MONTH, day);
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 
 

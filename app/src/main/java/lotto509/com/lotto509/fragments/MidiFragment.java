@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 import lotto509.com.lotto509.R;
+import lotto509.com.lotto509.activity.ActivityHome;
 import lotto509.com.lotto509.adapters.ArrayAdapterMidi;
 import lotto509.com.lotto509.models.Tchala;
 import lotto509.com.lotto509.models.TirageMidi;
@@ -63,7 +64,8 @@ public class MidiFragment extends Fragment {
 
     public void loadTirage(){
 
-        String url = "http://192.168.1.8:8888/Lotto509/src/routes/tirageMidi.php/api/tirageMidi";
+
+        String url = "http://192.168.1.15:8888/Lotto509/src/routes/tirageMidi.php/api/tirageMidi";
 
         AsyncHttpClient client = new AsyncHttpClient();
 
