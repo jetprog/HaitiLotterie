@@ -43,6 +43,7 @@ import cz.msebera.android.httpclient.Header;
 import lotto509.com.lotto509.R;
 import lotto509.com.lotto509.adapters.ArrayAdapterMidi;
 import lotto509.com.lotto509.adapters.ArrayAdapterTirage;
+import lotto509.com.lotto509.dialog.DialogSearch;
 import lotto509.com.lotto509.fragments.MidiFragment;
 import lotto509.com.lotto509.fragments.SoirFragment;
 import lotto509.com.lotto509.models.Tchala;
@@ -58,7 +59,7 @@ public class TirageActivity extends AppCompatActivity {
     private ArrayList<TirageSoir> listTirageSoir;
     private ArrayAdapterTirage arrayAdapterTirageSoir;
     ListView lvTirageSoir;
-    static SearchView searchView;
+    //static SearchView searchView;
 
     FragmentPagerAdapter adapterViewPager;
 
@@ -126,13 +127,38 @@ public class TirageActivity extends AppCompatActivity {
     //inflate menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.tchala_menu, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
+        getMenuInflater().inflate(R.menu.menu_tirage, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_calendar);
+        MenuItem advanceSearch = menu.findItem(R.id.action_advance_search);
 
 
-        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
 
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
+                FragmentManager fm = getSupportFragmentManager();
+                DialogSearch alertDialog = DialogSearch.newInstance("Recherche par date");
+                alertDialog.show(fm, "fragment_alert");
+
+                return false;
+            }
+        });
+
+
+        advanceSearch.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                Toast.makeText(getApplicationContext(), "Advance search", Toast.LENGTH_SHORT).show();
+
+                return false;
+            }
+        });
+
+
+        //searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+
+      /*  searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //your code here
@@ -140,9 +166,9 @@ public class TirageActivity extends AppCompatActivity {
                 newFragment.show(getSupportFragmentManager(), "Date Tirage");
 //                Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
-        searchView.setQueryHint("Entrée votre date");
+        /*searchView.setQueryHint("Entrée votre date");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String querySubmit) {
@@ -157,7 +183,7 @@ public class TirageActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
-        });
+        });*/
 
 
         return true;
@@ -289,7 +315,7 @@ public class TirageActivity extends AppCompatActivity {
 
 
 
-            searchView.setQuery(simpleDateFormat.format(c.getTime()), false);
+            //searchView.setQuery(simpleDateFormat.format(c.getTime()), false);
 
 
 

@@ -33,7 +33,7 @@ public class ActivityHome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener  {
 
 
-    static String ipAdress = "http://192.168.1.15:8888/";
+    static String ipAdress = "http://192.168.1.12:8888/";
 
     //declare variable to set value for each textview
     private TextView dateTirageMidi;

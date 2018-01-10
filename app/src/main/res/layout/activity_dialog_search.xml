@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    tools:context="lotto509.com.lotto509.dialog.DialogSearch">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout3"
+        android:elevation="1dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true">
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:id="@+id/spChoiceRangeDate"
+            android:layout_height="42dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/edtDateTirage"
+            android:layout_marginTop="20dp"
+            android:layout_height="42dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_below="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout4">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rechercher"
+            android:id="@+id/SearchTirage"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
