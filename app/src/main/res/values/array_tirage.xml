@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="filter_date">
+        <item>--Choisir un critère--</item>
+        <item>Date</item>
+        <item>Jour mois</item>
+    </string-array>
+
+
+    <string-array name="filter_month">
+        <item>--Choisir le mois--</item>
+        <item>Janvier</item>
+        <item>Février</item>
+        <item>Mars</item>
+        <item>Avril</item>
+        <item>Mai</item>
+        <item>Juin</item>
+        <item>Juillet</item>
+        <item>Aout</item>
+        <item>Septembre</item>
+        <item>Octobre</item>
+        <item>Novembre</item>
+        <item>Décembre</item>
+
+    </string-array>
+
+</resources>

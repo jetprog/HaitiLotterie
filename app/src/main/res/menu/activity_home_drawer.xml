@@ -23,7 +23,7 @@
         <item
             android:id="@+id/itJouer"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Jouer" />
+            android:title="Rapport" />
 
     </group>
 

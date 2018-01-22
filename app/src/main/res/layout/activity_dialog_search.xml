@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="500dp"
     tools:context="lotto509.com.lotto509.dialog.DialogSearch">
 
     <LinearLayout
@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_marginTop="20dp"
             android:id="@+id/spChoiceRangeDate"
+            android:entries="@array/filter_date"
             android:layout_height="42dp" />
 
         <EditText
@@ -26,22 +27,51 @@
             android:id="@+id/edtDateTirage"
             android:layout_marginTop="20dp"
             android:layout_height="42dp" />
+
+
+
+
     </LinearLayout>
+
+
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_below="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout4">
+        android:id="@+id/linearLayout4"
+       >
 
-        <Button
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rechercher"
-            android:id="@+id/SearchTirage"/>
+            android:text="Jour"/>
+        <NumberPicker
+            android:id="@+id/np_Jour"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mois"/>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:id="@+id/spChoiceMonth"
+            android:entries="@array/filter_month"
+            android:layout_height="42dp" />
+
 
     </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout4"
+        android:text="Rechercher"
+        android:id="@+id/btSearchTirage"/>
 
 
 </RelativeLayout>

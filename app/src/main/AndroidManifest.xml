@@ -25,7 +25,8 @@
         <activity android:name=".activity.ProbabilityActivity" />
         <activity android:name=".fragments.ColonneFragment" />
         <activity android:name=".fragments.KonpayelFragment" />
-        <activity android:name=".dialog.DialogSearch"></activity>
+        <activity android:name=".dialog.DialogSearch" />
+        <activity android:name=".activity.FilterActivity"></activity>
     </application>
 
 </manifest>
