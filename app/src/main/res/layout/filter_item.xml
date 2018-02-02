@@ -9,48 +9,41 @@
         android:orientation="vertical"
         android:id="@+id/linearLayout5">
 
+        <TextView
+            android:id="@+id/tvDateFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="2001-01-01" />
 
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Midi" />
+
+        <TextView
+            android:id="@+id/tvMidiFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Soir" />
+
+        <TextView
+            android:id="@+id/tvSoirFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout5"
-        android:layout_toEndOf="@+id/linearLayout5"
-        android:text="TextView" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
-        android:layout_toEndOf="@+id/linearLayout5"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView6"
-        android:layout_below="@+id/textView6"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView8"
-        android:layout_toEndOf="@+id/linearLayout5"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView12"
-        android:layout_below="@+id/textView12"
-        android:text="TextView" />
 
 </RelativeLayout>

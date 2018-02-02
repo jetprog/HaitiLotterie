@@ -24,19 +24,18 @@ public class Tirage {
 
     }
 
-    public static ArrayList<TirageMidi> fromJSONArray(JSONArray array){
-        ArrayList<TirageMidi> results = new ArrayList<>();
+    public static ArrayList<Tirage> fromJSONArray(JSONArray array){
+        ArrayList<Tirage> results = new ArrayList<>();
 
         for (int x = 0; x < array.length(); x++){
             try {
-                results.add(new TirageMidi(array.getJSONObject(x)));
+                results.add(new Tirage(array.getJSONObject(x)));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
         return results;
     }
-
 
 
     public String getDateTirage() {
@@ -62,4 +61,5 @@ public class Tirage {
     public void setLotto4(String lotto4) {
         this.lotto4 = lotto4;
     }
+
 }

@@ -10,17 +10,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import lotto509.com.lotto509.R;
-import lotto509.com.lotto509.models.Tchala;
 import lotto509.com.lotto509.models.Tirage;
 
 /**
  * Created by jetro on 1/22/18.
  */
 
-public class ArrayAdapterFilter extends ArrayAdapter<Tirage> {
+public class ArrayAdapterFilterSoir extends ArrayAdapter<Tirage> {
 
     //constructor
-    public ArrayAdapterFilter(Context context, ArrayList<Tirage> tirageList)
+    public ArrayAdapterFilterSoir(Context context, ArrayList<Tirage> tirageList)
     {
         super(context, android.R.layout.simple_list_item_1, tirageList);
     }
@@ -43,12 +42,10 @@ public class ArrayAdapterFilter extends ArrayAdapter<Tirage> {
 
 
         //Find views
-        TextView date = (TextView) convertView.findViewById(R.id.tvDateFilter);
-        TextView tirageMidi = (TextView) convertView.findViewById(R.id.tvMidiFilter);
+        TextView tirageMidi = (TextView) convertView.findViewById(R.id.tvSoirFilter);
 
 
         //populate data
-        date.setText(dateTir);
         tirageMidi.setText(tirageFinal);
 
         return convertView;
