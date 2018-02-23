@@ -1,5 +1,6 @@
 package lotto509.com.lotto509.dialog;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +36,7 @@ public class DialogResult extends DialogFragment {
 
     private TextView midi;
     private TextView soir;
+    private ImageView ivShare;
 
 
     public DialogResult() {
@@ -58,13 +61,31 @@ public class DialogResult extends DialogFragment {
 
 
 
-        String date = (String) getArguments().getString("dateSearch");
+        final String date = (String) getArguments().getString("dateSearch");
 
         midi = (TextView) v.findViewById(R.id.tvResultMidi);
         soir = (TextView) v.findViewById(R.id.tvResultSoir);
 
         searchTirage(date);
 
+        ivShare = (ImageView) v.findViewById(R.id.ivShareLotto);
+        ivShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String midiLot = midi.getText().toString();
+                String soirLot = soir.getText().toString();
+
+                String share = date + "\nMidi: "+ midiLot + "\nSoir: " + soirLot;
+
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, share);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+
+            }
+        });
 
         return v;
 

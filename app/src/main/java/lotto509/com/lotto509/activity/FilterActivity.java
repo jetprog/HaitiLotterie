@@ -39,7 +39,10 @@ public class FilterActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Recherche");
 
-        String dateTirage = getIntent().getStringExtra("dateSearch");
+        String month = getIntent().getStringExtra("searchDay");
+        String day = getIntent().getStringExtra("searchMonth");
+
+        String dateTirage = day+"-"+month;
 
         lvTirageMidi = (ListView) findViewById(R.id.lvFilter);
         listTirage = new ArrayList<>();
@@ -47,7 +50,7 @@ public class FilterActivity extends AppCompatActivity {
         lvTirageMidi.setAdapter(adapterFilter);
 
         Toast.makeText(getApplicationContext(), dateTirage, Toast.LENGTH_SHORT).show();
-        loadTirage(dateTirage);
+        //loadTirage(month);
 
     }
 

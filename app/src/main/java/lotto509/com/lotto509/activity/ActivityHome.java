@@ -3,6 +3,7 @@ package lotto509.com.lotto509.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -33,6 +34,8 @@ import java.util.HashMap;
 
 import cz.msebera.android.httpclient.Header;
 import lotto509.com.lotto509.R;
+import lotto509.com.lotto509.dialog.DialogProbability;
+import lotto509.com.lotto509.dialog.DialogResult;
 import lotto509.com.lotto509.models.Tirage;
 import lotto509.com.lotto509.models.TirageMidi;
 import lotto509.com.lotto509.models.TirageSoir;
@@ -42,7 +45,7 @@ public class ActivityHome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener  {
 
 
-    static String ipAdress = "http://192.168.1.167:8888/";
+    static String ipAdress = "http://192.168.1.160:8888/";
 
     //declare variable to set value for each textview
     private TextView dateTirageMidi;
@@ -112,10 +115,10 @@ public class ActivityHome extends AppCompatActivity
 
 
         //populate data Tirage midi
-        setTirageMidi();
+        //setTirageMidi();
 
         //populate data tirage soir
-        setTirageSoir();
+        //setTirageSoir();
 
 
     }
@@ -273,6 +276,11 @@ public class ActivityHome extends AppCompatActivity
 
 
         } else if (id == R.id.itBoulChans) {
+
+                FragmentManager fmProbability = getSupportFragmentManager();
+                DialogProbability dialog_probabilite = DialogProbability.newInstance("Tirage Probable");
+                dialog_probabilite.show(fmProbability, "fragment probabilite");
+
 
         } else if (id == R.id.itShare) {
 

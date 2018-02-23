@@ -3,22 +3,24 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/itTirages"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Tirages" />
-        <item
             android:id="@+id/itTchala"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Tchala" />
+
         <item
-            android:id="@+id/itProbabilite"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="séquence" />
+            android:id="@+id/itTirages"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Tirages" />
 
         <item
             android:id="@+id/itBoulChans"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Probabilité du jour" />
+
+        <item
+            android:id="@+id/itProbabilite"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="séquence" />
 
         <item
             android:id="@+id/itJouer"

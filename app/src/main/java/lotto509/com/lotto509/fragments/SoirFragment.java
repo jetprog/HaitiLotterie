@@ -61,7 +61,7 @@ public class SoirFragment extends Fragment {
 
     public void loadTirage(){
 
-        String url = "http://192.168.1.9:8888/Lotto509/src/routes/tirageSoir.php/api/tirageSoir";
+        String url = "http://192.168.1.167:8888/Lotto509/src/routes/tirageSoir.php/api/tirageSoir";
 
         AsyncHttpClient client = new AsyncHttpClient();
 

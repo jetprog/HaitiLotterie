@@ -13,10 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -56,6 +58,8 @@ public class DialogSearch extends DialogFragment{
     Spinner spFilter;
     static EditText edtDateSearch;
     Button search;
+    Spinner spMonth;
+    NumberPicker npDay;
 
 
     public DialogSearch() {
@@ -80,6 +84,47 @@ public class DialogSearch extends DialogFragment{
         spFilter = (Spinner) v.findViewById(R.id.spChoiceRangeDate);
         edtDateSearch = (EditText) v.findViewById(R.id.edtDateTirage);
         search = (Button) v.findViewById(R.id.btSearchTirage);
+        npDay = (NumberPicker) v.findViewById(R.id.npDayFilter);
+        spMonth = (Spinner) v.findViewById(R.id.spFilterMonth);
+
+
+        npDay.setMinValue(1);
+        npDay.setMaxValue(31);
+        npDay.setWrapSelectorWheel(true);
+        npDay.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+
+
+
+        spFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (spFilter.getSelectedItem().equals("Date")){
+                    edtDateSearch.setVisibility(View.VISIBLE);
+
+                    npDay.setVisibility(View.GONE);
+                    spMonth.setVisibility(View.GONE);
+
+                }
+
+                if (spFilter.getSelectedItem().equals("Jour mois")){
+                    npDay.setVisibility(View.VISIBLE);
+                    spMonth.setVisibility(View.VISIBLE);
+
+                    edtDateSearch.setVisibility(View.GONE);
+                }
+
+
+
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         edtDateSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,8 +150,13 @@ public class DialogSearch extends DialogFragment{
                 }
                 else if(spFilter.getSelectedItem().equals("Jour mois")){
 
+                    String valNumberPicker = Integer.toString(npDay.getValue());
+                    String valMonth = filter(edtDateSearch.getText().toString());
+
+
                     Intent i = new Intent(getContext(), FilterActivity.class);
-                    i.putExtra("dateSearch", date);
+                    i.putExtra("searchDay", valNumberPicker);
+                    i.putExtra("searchMonth", valMonth);
                     startActivity(i);
                     dismiss();
                 }
@@ -163,83 +213,52 @@ public class DialogSearch extends DialogFragment{
 
     }
 
+    public String filter(String str){
 
-    private void searchTirage(String userQuery){
+        String val = "";
 
-        listTirage = new ArrayList<>();
-        arrayAdapterTirage = new ArrayAdapterMidi(getContext(), listTirage);
-        lvTirageMidi.setAdapter(arrayAdapterTirage);
-
-        listTirageSoir = new ArrayList<>();
-        arrayAdapterTirageSoir = new ArrayAdapterTirage(getContext(), listTirageSoir);
-        lvTirageSoir.setAdapter(arrayAdapterTirageSoir);
-
-
-        String query = userQuery;
-
-        String url = "http://192.168.1.12:8888/Lotto509/src/routes/tirageMidi.php/api/tirageMidi";
-
-
-        AsyncHttpClient client = new AsyncHttpClient();
-
-
-        client.get(url + '/' + query, new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                JSONArray tchalaResults = null;
-
-                try {
-                    tchalaResults = response.getJSONArray("tchala");
-                    listTirage.addAll(TirageMidi.fromJSONArray(tchalaResults));
-                    arrayAdapterTirage.notifyDataSetChanged();
-                    Log.d("DEBUG", listTirage.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-
-                //Toast.makeText(getApplicationContext(), String.valueOf(statusCode), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        String urlSoir = "http://192.168.1.12:8888/Lotto509/src/routes/tirageSoir.php/api/tirageSoir";
+        if(str.equals("Janvier")){
+            val = "01";
+        }
+        if(str.equals("Fevrier")){
+            val = "02";
+        }
+        if(str.equals("Mars")){
+            val = "03";
+        }
+        if(str.equals("Avril")){
+            val = "04";
+        }
+        if(str.equals("Mai")){
+            val = "05";
+        }
+        if(str.equals("Juin")){
+            val = "06";
+        }
+        if(str.equals("Juillet")){
+            val = "07";
+        }
+        if(str.equals("Aout")){
+            val = "08";
+        }
+        if(str.equals("Septembre")){
+            val = "09";
+        }
+        if(str.equals("Octobre")){
+            val = "10";
+        }
+        if(str.equals("Novembre")){
+            val = "11";
+        }
+        if(str.equals("Decembre")){
+            val = "12";
+        }
 
 
-        AsyncHttpClient clientSoir = new AsyncHttpClient();
-
-
-        clientSoir.get(urlSoir + '/' + query, new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                JSONArray tchalaResults = null;
-
-                try {
-                    tchalaResults = response.getJSONArray("tchala");
-                    listTirageSoir.addAll(TirageSoir.fromJSONArray(tchalaResults));
-                    arrayAdapterTirageSoir.notifyDataSetChanged();
-                    Log.d("DEBUG", listTirageSoir.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-
-                //Toast.makeText(getApplicationContext(), String.valueOf(statusCode) , Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-
+        return val;
     }
+
+
 
 
 

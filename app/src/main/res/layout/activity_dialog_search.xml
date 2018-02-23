@@ -26,50 +26,35 @@
             android:layout_width="match_parent"
             android:id="@+id/edtDateTirage"
             android:layout_marginTop="20dp"
+            android:visibility="gone"
             android:layout_height="42dp" />
-
-
-
 
     </LinearLayout>
 
-
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <NumberPicker
+        android:layout_width="70dp"
+        android:layout_height="60dp"
         android:layout_below="@+id/linearLayout3"
+        android:visibility="gone"
+        android:id="@+id/npDayFilter">
+
+    </NumberPicker>
+
+    <Spinner
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout4"
-       >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Jour"/>
-        <NumberPicker
-            android:id="@+id/np_Jour"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mois"/>
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
-            android:id="@+id/spChoiceMonth"
-            android:entries="@array/filter_month"
-            android:layout_height="42dp" />
+        android:layout_toRightOf="@+id/npDayFilter"
+        android:layout_alignTop="@+id/npDayFilter"
+        android:visibility="gone"
+        android:id="@+id/spFilterMonth"
+        android:entries="@array/filter_month"
+        android:layout_height="42dp" />
 
 
-    </LinearLayout>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout4"
+        android:layout_below="@+id/npDayFilter"
         android:text="Rechercher"
         android:id="@+id/btSearchTirage"/>
 

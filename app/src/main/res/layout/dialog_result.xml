@@ -2,8 +2,9 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="250dp"
-    android:layout_height="300dp">
+    android:layout_width="300dp"
+    android:layout_height="200dp"
+    android:padding="10dp">
 
 
     <TextView
@@ -11,12 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
+        android:textSize="20sp"
         android:text="Midi" />
 
     <TextView
         android:id="@+id/tvResultMidi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="15sp"
         android:text="TextView" />
 
     <TextView
@@ -24,11 +27,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Soir"
+        android:textSize="20sp"
         android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/tvResultSoir"
         android:layout_width="match_parent"
+        android:textSize="15sp"
         android:layout_height="wrap_content"
         android:text="TextView" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:id="@+id/ivShareLotto"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_action_share"/>
+
 </LinearLayout>
