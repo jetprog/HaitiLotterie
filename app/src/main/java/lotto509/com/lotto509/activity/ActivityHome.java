@@ -3,11 +3,13 @@ package lotto509.com.lotto509.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -21,10 +23,20 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
+import cz.msebera.android.httpclient.Header;
 import lotto509.com.lotto509.R;
+import lotto509.com.lotto509.dialog.DialogProbability;
+import lotto509.com.lotto509.dialog.DialogResult;
+import lotto509.com.lotto509.models.Tirage;
 import lotto509.com.lotto509.models.TirageMidi;
 import lotto509.com.lotto509.models.TirageSoir;
 import lotto509.com.lotto509.utils.Backend;
@@ -32,6 +44,8 @@ import lotto509.com.lotto509.utils.Backend;
 public class ActivityHome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener  {
 
+
+    static String ipAdress = "http://192.168.1.160:8888/";
 
     //declare variable to set value for each textview
     private TextView dateTirageMidi;
@@ -79,7 +93,7 @@ public class ActivityHome extends AppCompatActivity
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.ZoomOut);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-        mDemoSlider.setDuration(5000);
+        mDemoSlider.setDuration(3000);
         mDemoSlider.addOnPageChangeListener(this);
 
         //replace actionbar by toolbar
@@ -101,10 +115,10 @@ public class ActivityHome extends AppCompatActivity
 
 
         //populate data Tirage midi
-        setTirageMidi();
+        //setTirageMidi();
 
         //populate data tirage soir
-        setTirageSoir();
+        //setTirageSoir();
 
 
     }
@@ -112,32 +126,48 @@ public class ActivityHome extends AppCompatActivity
 
     public void setTirageMidi(){
 
+
         dateTirageMidi = (TextView) findViewById(R.id.tvDateTirageMidi);
         lotto3Midi = (TextView) findViewById(R.id.tvLotto3Midi);
         lotto4Midi = (TextView) findViewById(R.id.tvLotto4Midi);
 
-        Backendless.Persistence.of( TirageMidi.class).findLast(new AsyncCallback<TirageMidi>(){
-            @Override
-            public void handleResponse( TirageMidi tirageMidifound )
-            {
-                // last tirage instance has been found
-                TirageMidi tirage = tirageMidifound;
-                Toast.makeText(getApplicationContext(), "Succes", Toast.LENGTH_SHORT).show();
-                String dateTir = tirage.getDateTirage().toString();
-                String lot3 = tirage.getLotto3().toString();
-                String lot4 = tirage.getLotto4().toString();
+        String url = "http://192.168.1.167:8888/Lotto509/src/routes/tirage.php/api/Midi";
 
-                dateTirageMidi.setText(dateTir);
-                lotto3Midi.setText(lot3);
-                lotto4Midi.setText(lot4);
-            }
+        AsyncHttpClient client = new AsyncHttpClient();
+
+
+
+        client.get(url, new JsonHttpResponseHandler(){
             @Override
-            public void handleFault( BackendlessFault fault )
-            {
-                // an error has occurred, the error code can be retrieved with fault.getCode()
-                Toast.makeText(getApplicationContext(), "No tirage", Toast.LENGTH_SHORT).show();
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                JSONArray tirageResults = null;
+
+                try {
+                    tirageResults = response.getJSONArray("tirage");
+                    Tirage tir = new Tirage(tirageResults.getJSONObject(0));
+
+                    String dateTir = tir.getDateTirage().toString();
+                    String lot3 = tir.getLotto3().toString();
+                    String lot4 = tir.getLotto4().toString();
+
+                    dateTirageMidi.setText(dateTir);
+                    lotto3Midi.setText(lot3);
+                    lotto4Midi.setText(lot4);
+                    //Log.d("DEBUG", listTirage.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+
+                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     public void setTirageSoir(){
@@ -146,28 +176,46 @@ public class ActivityHome extends AppCompatActivity
         lotto3Soir = (TextView) findViewById(R.id.tvLotto3Soir);
         lotto4Soir = (TextView) findViewById(R.id.tvLotto4Soir);
 
-        Backendless.Persistence.of( TirageSoir.class).findLast(new AsyncCallback<TirageSoir>(){
-            @Override
-            public void handleResponse( TirageSoir tirageSoirfound )
-            {
-                // last tirage instance has been found
-                TirageSoir tirage = tirageSoirfound;
-                Toast.makeText(getApplicationContext(), "Succes", Toast.LENGTH_SHORT).show();
-                String dateTir = tirage.getDateTirage().toString();
-                String lot3 = tirage.getLotto3().toString();
-                String lot4 = tirage.getLotto4().toString();
 
-                dateTirageSoir.setText(dateTir);
-                lotto3Soir.setText(lot3);
-                lotto4Soir.setText(lot4);
-            }
+
+        String url = "http://192.168.1.167:8888/Lotto509/src/routes/tirage.php/api/Soir";
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+
+
+        client.get(url, new JsonHttpResponseHandler(){
             @Override
-            public void handleFault( BackendlessFault fault )
-            {
-                // an error has occurred, the error code can be retrieved with fault.getCode()
-                Toast.makeText(getApplicationContext(), "No tirage", Toast.LENGTH_SHORT).show();
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                JSONArray tirageResults = null;
+
+                try {
+                    tirageResults = response.getJSONArray("tirage");
+                    Tirage tir = new Tirage(tirageResults.getJSONObject(0));
+
+                    String dateTir = tir.getDateTirage().toString();
+                    String lot3 = tir.getLotto3().toString();
+                    String lot4 = tir.getLotto4().toString();
+
+                    dateTirageSoir.setText(dateTir);
+                    lotto3Soir.setText(lot3);
+                    lotto4Soir.setText(lot4);
+                    //Log.d("DEBUG", listTirage.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+
+                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
 
@@ -228,6 +276,11 @@ public class ActivityHome extends AppCompatActivity
 
 
         } else if (id == R.id.itBoulChans) {
+
+                FragmentManager fmProbability = getSupportFragmentManager();
+                DialogProbability dialog_probabilite = DialogProbability.newInstance("Tirage Probable");
+                dialog_probabilite.show(fmProbability, "fragment probabilite");
+
 
         } else if (id == R.id.itShare) {
 

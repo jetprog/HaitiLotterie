@@ -2,14 +2,15 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "lotto509.com.lotto509"
-        minSdkVersion 9
+        minSdkVersion 19
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+
     }
     buildTypes {
         release {
@@ -20,6 +21,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.backendless:backendless:3.0.20.1'
@@ -30,4 +32,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.slider:library:1.1.5@aar'
+    compile 'com.loopj.android:android-async-http:1.4.9'
+
 }

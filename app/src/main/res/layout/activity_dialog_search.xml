@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    tools:context="lotto509.com.lotto509.dialog.DialogSearch">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout3"
+        android:elevation="1dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true">
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:id="@+id/spChoiceRangeDate"
+            android:entries="@array/filter_date"
+            android:layout_height="42dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/edtDateTirage"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+            android:layout_height="42dp" />
+
+    </LinearLayout>
+
+    <NumberPicker
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/linearLayout3"
+        android:visibility="gone"
+        android:id="@+id/npDayFilter">
+
+    </NumberPicker>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@+id/npDayFilter"
+        android:layout_alignTop="@+id/npDayFilter"
+        android:visibility="gone"
+        android:id="@+id/spFilterMonth"
+        android:entries="@array/filter_month"
+        android:layout_height="42dp" />
+
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/npDayFilter"
+        android:text="Rechercher"
+        android:id="@+id/btSearchTirage"/>
+
+
+</RelativeLayout>

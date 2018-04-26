@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import lotto509.com.lotto509.models.Colonne;
 import lotto509.com.lotto509.models.Konpayel;
+import lotto509.com.lotto509.models.Probabilite;
 
 /**
  * Created by Carly Baja on 8/28/2017.
@@ -70,6 +71,75 @@ public class Values {
         return colList;
     }
 
+
+    public static ArrayList<Probabilite> listProbable(){
+
+        ArrayList<Probabilite> probList = new ArrayList<>();
+
+        Probabilite prob1 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob1);
+        Probabilite prob2 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob2);
+        Probabilite prob3 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob3);
+        Probabilite prob4 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob4);
+        Probabilite prob5 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob5);
+        Probabilite prob6 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob6);
+        Probabilite prob7 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob7);
+        Probabilite prob8 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob8);
+        Probabilite prob9 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob9);
+        Probabilite prob10 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob10);
+        Probabilite prob11 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob11);
+        Probabilite prob12 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob12);
+        Probabilite prob13 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob13);
+        Probabilite prob14 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob14);
+        Probabilite prob15 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob15);
+        Probabilite prob16 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob16);
+        Probabilite prob17 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob17);
+        Probabilite prob18 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob18);
+        Probabilite prob19 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob19);
+        Probabilite prob20 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob20);
+        Probabilite prob21 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob21);
+        Probabilite prob22 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob22);
+        Probabilite prob23 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob23);
+        Probabilite prob24 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob24);
+        Probabilite prob25 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob25);
+        Probabilite prob26 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob26);
+        Probabilite prob27 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob27);
+        Probabilite prob28 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob28);
+        Probabilite prob29 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob29);
+        Probabilite prob30 = new Probabilite("Date-01", "26", "51", "76", "26", "51", "76", "26", "51");
+        probList.add(prob30);
+
+
+        return probList;
+    }
 
 
     public static ArrayList<Konpayel> listKonpayel(){
