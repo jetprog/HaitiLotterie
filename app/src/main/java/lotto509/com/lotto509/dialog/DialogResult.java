@@ -93,25 +93,23 @@ public class DialogResult extends DialogFragment {
 
     public void searchTirage(String userQuery){
 
-        String query = userQuery;
+        String query = "?params=" + userQuery.replace("-", "/") ;
 
-        String ip = "http://192.168.1.167:8888/";
-
-        String url = ip + "Lotto509/src/routes/tirageMidi.php/api/tirageMidi";
+        String url = "http://www.cristalhotelhaiti.com/lotto509/tirageMidi.php?params=01/01/2003";
 
 
         AsyncHttpClient client = new AsyncHttpClient();
 
 
-        client.get(url + '/' + query, new JsonHttpResponseHandler(){
+        client.get(url , new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 JSONArray tchalaResults = null;
 
                 try {
-                    tchalaResults = response.getJSONArray("tchala");
+                    tchalaResults = response.getJSONArray("tirageMidi");
                     TirageMidi tir = new TirageMidi(tchalaResults.getJSONObject(0));
-                    soir.setText(tir.getLotto3() + " " + tir.getLotto4());
+                    midi.setText(tir.getLotto3() + " " + tir.getLotto4());
                     //Log.d("DEBUG", listTirage.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -127,21 +125,21 @@ public class DialogResult extends DialogFragment {
             }
         });
 
-        String urlSoir = "http://192.168.1.167:8888/Lotto509/src/routes/tirageSoir.php/api/tirageSoir";
+        String urlSoir = "http://www.cristalhotelhaiti.com/lotto509/tirageSoir.php?params=01/01/2003";
 
 
         AsyncHttpClient clientSoir = new AsyncHttpClient();
 
 
-        clientSoir.get(urlSoir + '/' + query, new JsonHttpResponseHandler(){
+        clientSoir.get(urlSoir, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 JSONArray tchalaResults = null;
 
                 try {
-                    tchalaResults = response.getJSONArray("tchala");
+                    tchalaResults = response.getJSONArray("tirageSoir");
                     TirageSoir tirSoir = new TirageSoir(tchalaResults.getJSONObject(0));
-                    midi.setText(tirSoir.getLotto3() + " " + tirSoir.getLotto4());
+                    soir.setText(tirSoir.getLotto3() + " " + tirSoir.getLotto4());
 
                     //Log.d("DEBUG", listTirageSoir.toString());
                 } catch (JSONException e) {

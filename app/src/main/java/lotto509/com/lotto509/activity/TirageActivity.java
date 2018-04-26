@@ -204,17 +204,15 @@ public class TirageActivity extends AppCompatActivity {
         lvTirageSoir.setAdapter(arrayAdapterTirageSoir);
 
 
-        String query = userQuery;
+        String query = "?params=" + userQuery ;
 
-        String ip = ActivityHome.ipAdress;
-
-        String url = ip + "Lotto509/src/routes/tirageMidi.php/api/tirageMidi";
+        String url = "http://www.cristalhotelhaiti.com/lotto509/tirageMidi.php";
 
 
         AsyncHttpClient client = new AsyncHttpClient();
 
 
-        client.get(url + '/' + query, new JsonHttpResponseHandler(){
+        client.get(url + query, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 JSONArray tchalaResults = null;
@@ -238,13 +236,13 @@ public class TirageActivity extends AppCompatActivity {
             }
         });
 
-        String urlSoir = "http://192.168.1.8:8888/Lotto509/src/routes/tirageSoir.php/api/tirageSoir";
+        String urlSoir = "http://www.cristalhotelhaiti.com/lotto509/tirageSoir.php";
 
 
         AsyncHttpClient clientSoir = new AsyncHttpClient();
 
 
-        clientSoir.get(urlSoir + '/' + query, new JsonHttpResponseHandler(){
+        clientSoir.get(urlSoir + query, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 JSONArray tchalaResults = null;

@@ -65,7 +65,7 @@ public class MidiFragment extends Fragment {
     public void loadTirage(){
 
 
-        String url = "http://192.168.1.167:8888/Lotto509/src/routes/tirageMidi.php/api/tirageMidi";
+        String url = "http://www.cristalhotelhaiti.com/lotto509/tirageMidi.php";
 
         AsyncHttpClient client = new AsyncHttpClient();
 

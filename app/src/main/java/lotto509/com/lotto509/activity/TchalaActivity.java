@@ -57,7 +57,7 @@ public class TchalaActivity extends AppCompatActivity {
         listTchala.setAdapter(tchalaAdapter);
 
 
-        String url = "http://192.168.1.167:8888/Lotto509/src/routes/tchala.php/api/tchala";
+        String url = "http://cristalhotelhaiti.com/lotto509/tchala.php";
 
 //        http://localhost:8888/Lotto509/src/routes/tchala.php/api/tchala
 
@@ -122,8 +122,8 @@ public class TchalaActivity extends AppCompatActivity {
                 Iterator<Tchala> tchalaIterator = foundPatients.getCurrentPage().iterator();
                 while (tchalaIterator.hasNext())
                 {
-                    Tchala newPatient = tchalaIterator.next();
-                    tchalaliste.add(newPatient);
+                    Tchala newTchala = tchalaIterator.next();
+                    tchalaliste.add(newTchala);
 
                 }
                 tchalaAdapter.notifyDataSetChanged();
@@ -178,17 +178,17 @@ public class TchalaActivity extends AppCompatActivity {
         listTchala.setAdapter(tchalaAdapter);
 
 
-        String query = userQuery;
+        String query = "?params=" + userQuery ;
         String ip = ActivityHome.ipAdress;
 
-        String url = "http://192.168.1.167:8888/Lotto509/src/routes/tchala.php/api/tchala";
+        String url = "http://cristalhotelhaiti.com/lotto509/tchala.php";
 
 //        http://localhost:8888/Lotto509/src/routes/tchala.php/api/tchala
 
         AsyncHttpClient client = new AsyncHttpClient();
 
 
-        client.get(url + '/' + query, new JsonHttpResponseHandler(){
+        client.get(url + query, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 JSONArray tchalaResults = null;
