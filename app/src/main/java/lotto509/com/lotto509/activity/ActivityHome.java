@@ -45,7 +45,6 @@ public class ActivityHome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener  {
 
 
-    static String ipAdress = "http://192.168.1.160:8888/";
 
     //declare variable to set value for each textview
     private TextView dateTirageMidi;
@@ -115,11 +114,10 @@ public class ActivityHome extends AppCompatActivity
 
 
         //populate data Tirage midi
-        //setTirageMidi();
+        setTirageMidi();
 
         //populate data tirage soir
-        //setTirageSoir();
-
+        setTirageSoir();
 
     }
 
@@ -131,7 +129,7 @@ public class ActivityHome extends AppCompatActivity
         lotto3Midi = (TextView) findViewById(R.id.tvLotto3Midi);
         lotto4Midi = (TextView) findViewById(R.id.tvLotto4Midi);
 
-        String url = "http://192.168.1.167:8888/Lotto509/src/routes/tirage.php/api/Midi";
+        String url = "http://www.cristalhotelhaiti.com/lotto509/Tirage.php?params";
 
         AsyncHttpClient client = new AsyncHttpClient();
 
@@ -178,7 +176,7 @@ public class ActivityHome extends AppCompatActivity
 
 
 
-        String url = "http://192.168.1.167:8888/Lotto509/src/routes/tirage.php/api/Soir";
+        String url = "http://www.cristalhotelhaiti.com/lotto509/Tirage.php";
 
         AsyncHttpClient client = new AsyncHttpClient();
 
