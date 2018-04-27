@@ -179,7 +179,6 @@ public class TchalaActivity extends AppCompatActivity {
 
 
         String query = "?params=" + userQuery ;
-        String ip = ActivityHome.ipAdress;
 
         String url = "http://cristalhotelhaiti.com/lotto509/tchala.php";
 
